@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: fb84fcaae7f88784f986e99e3b52a053
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - controller: {instanceID: 0}
+  - test: {instanceID: 0}
+  - piece: {instanceID: 0}
+  - DMPawn: {instanceID: 0}
+  - Rook: {instanceID: 0}
+  - source: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

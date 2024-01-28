@@ -1,0 +1,5 @@
+C:/Users/fam Buciuman/Desktop/programul meu/ChessGame1/.utmp/RelWithDebInfo/5h1r1d4n/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/fam Buciuman/Desktop/programul meu/ChessGame1/.utmp/RelWithDebInfo/5h1r1d4n/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+C:/Users/fam Buciuman/Desktop/programul meu/ChessGame1/.utmp/RelWithDebInfo/5h1r1d4n/armeabi-v7a/FramePacing/CMakeFiles/swappywrapper.dir
+C:/Users/fam Buciuman/Desktop/programul meu/ChessGame1/.utmp/RelWithDebInfo/5h1r1d4n/armeabi-v7a/FramePacing/CMakeFiles/edit_cache.dir
+C:/Users/fam Buciuman/Desktop/programul meu/ChessGame1/.utmp/RelWithDebInfo/5h1r1d4n/armeabi-v7a/FramePacing/CMakeFiles/rebuild_cache.dir

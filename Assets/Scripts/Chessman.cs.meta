@@ -1,0 +1,27 @@
+fileFormatVersion: 2
+guid: 7142f030871dc364989cfcd3a2991ad5
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - controller: {fileID: 9127858200460470546, guid: 7a3fe8df36ebd9847864ee8a463bc99d,
+      type: 3}
+  - movePlate: {fileID: 725186891921802023, guid: ea561c3b151203f4482620ace684a73d,
+      type: 3}
+  - black_king: {instanceID: 0}
+  - black_queen: {instanceID: 0}
+  - black_bishop: {instanceID: 0}
+  - black_knight: {instanceID: 0}
+  - black_rook: {instanceID: 0}
+  - black_pawn: {instanceID: 0}
+  - white_king: {instanceID: 0}
+  - white_queen: {instanceID: 0}
+  - white_bishop: {instanceID: 0}
+  - white_knight: {instanceID: 0}
+  - white_rook: {instanceID: 0}
+  - white_pawn: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
