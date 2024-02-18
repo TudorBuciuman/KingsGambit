@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class MoveThePlate : MonoBehaviour
 {
     public GameObject controller;
+    public LegalMovesManager legalMovesManager;
+
     GameObject reference = null;
     public GameObject test;
     int matrixX;
@@ -23,10 +26,12 @@ public class MoveThePlate : MonoBehaviour
     public int tyr;
     public int txr;
 
+
     public AudioSource source;
     public AudioClip move,moveattack,check;
     public void Start()
     {
+       
         if (attack)
         {
             controller = GameObject.FindGameObjectWithTag("GameController");
@@ -108,6 +113,26 @@ public class MoveThePlate : MonoBehaviour
                 Rook.GetComponent<Chessman>().castling = false;
             }
             controller.GetComponent<Game>().RecordTheMove(piece, IX, IY, reference.GetComponent<Chessman>().GetXBoard(), reference.GetComponent<Chessman>().GetYBoard());
+
+
+           legalMovesManager=controller.GetComponent<LegalMovesManager>();
+            if (legalMovesManager.IsKingInCheck()) 
+                {
+                if(legalMovesManager.IsCheckmate(controller.GetComponent<Game>().currentPlayer))
+                {
+                    Debug.Log("sah mat pentru " + controller.GetComponent<Game>().currentPlayer);
+                }
+                else
+                {
+                    Debug.Log("sah "+ controller.GetComponent<Game>().currentPlayer);
+                }
+            }
+            else if(legalMovesManager.IsStalemate())
+            {
+                Debug.Log("pat");
+            }
+
+            
         }
     }
     public void SetCoords(int x, int y)

@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 209379706779289194}
   - component: {fileID: 9089198133252532964}
   - component: {fileID: -5673620849161826349}
+  - component: {fileID: 5418897422322895827}
   - component: {fileID: 7855791429296137506}
   m_Layer: 0
   m_Name: chesspiece
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveThePlatescript: {fileID: 0}
   gameManager: {fileID: 0}
+  LegalMovesManager: {fileID: 0}
   controller: {fileID: 0}
   movePlate: {fileID: 889220124620453694, guid: e25be6a11806d4149a8a03fcf7410b15, type: 3}
   player: 
@@ -132,6 +134,22 @@ MonoBehaviour:
   TXR: 0
   TYR: 0
   castling: 0
+--- !u!114 &5418897422322895827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9127858200460470546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 447a00df554022f4681a15e44ec8e602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  legalMovesManage: {fileID: 0}
+  game: {fileID: 0}
+  CheckPiece: {fileID: 0}
+  lostpiece: {fileID: 0}
 --- !u!61 &7855791429296137506
 BoxCollider2D:
   m_ObjectHideFlags: 0

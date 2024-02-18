@@ -7,9 +7,9 @@ using Text = TMPro.TextMeshProUGUI;
 public class Game : MonoBehaviour
 {
     public GameObject chesspiece;
-    private GameObject[,] positions = new GameObject[8, 8];
-    private GameObject[] playerBlack = new GameObject[16];
-    private GameObject[] playerWhite = new GameObject[16];
+    public GameObject[,] positions = new GameObject[8, 8];
+    public GameObject[] playerBlack = new GameObject[16];
+    public GameObject[] playerWhite = new GameObject[16];
     public string currentPlayer = "white";
     public bool gameOver = false;
     public string winner;
@@ -108,14 +108,15 @@ public class Game : MonoBehaviour
         winner = playerW;
         gameOver = true;
     }
-    public void Update()
+ /*   public void Update()
     {
         if (IsGameOver())
         {
+            Debug.Log("checkmate");  
             GameObject.FindGameObjectWithTag("Winner").GetComponent<Text>().enabled = true;
             GameObject.FindGameObjectWithTag("Winner").GetComponent<Text>().text = winner + " has won";
             GameObject.FindGameObjectWithTag("Restart").GetComponent<Text>().enabled = true;
-
+            enabled=false;
         }
         if (IsGameOver() == true && Input.GetMouseButtonDown(0))
         {
@@ -124,7 +125,7 @@ public class Game : MonoBehaviour
             gameOver = false;
         }
     }
-
+ */
     [System.Serializable]
     public class Move
     {
@@ -174,7 +175,7 @@ public class Game : MonoBehaviour
             WCastling = false;
         }
     }
-
+    
     public Move GetTheLastMove()
     {
         if (MoveHistory.Count > 0)
@@ -183,116 +184,36 @@ public class Game : MonoBehaviour
         }
         return null;
     }
-    public bool IsKingInCheck()
-    {
-            GameObject LMove = GetTheLastMove().piece;
-        Debug.Log(LMove);
-            int a = GetTheLastMove().toX;
-            int b= GetTheLastMove().toY;
-            switch (LMove.name)
-            {
-                case "black_queen":
-                case "white_queen":
-                   return( LineMovePlate(1, 0,a,b) ||
-                    LineMovePlate(0, 1, a, b)||
-                    LineMovePlate(1, 1, a, b)||
-                    LineMovePlate(-1, 0, a, b)||
-                    LineMovePlate(0, -1, a, b)||
-                    LineMovePlate(-1, -1, a, b)||
-                    LineMovePlate(-1, 1, a, b)||
-                    LineMovePlate(1, -1, a, b));
-                case "black_bishop":
-                case "white_bishop":
-                return (
-                    LineMovePlate(1, 1, a, b) ||
-                    LineMovePlate(-1, -1, a, b) ||
-                    LineMovePlate(-1, 1, a, b) ||
-                    LineMovePlate(1, -1, a, b));
-                case "black_pawn":
-                return( GoTo(a - 1, b - 1) || GoTo(a + 1, b - 1));
-                case "white_pawn":
-                return (GoTo(a-1,b+1)  || GoTo(a-1,b+1));
-                case "black_knight":
-                case "white_knight":
-                return (GoTo(a + 1, b + 2) || GoTo(a - 1, b + 2) || GoTo(a + 1, b - 2) || GoTo(a + 2, b - 1) || GoTo(a - 1, b + 2) || GoTo(a - 1, b - 2) || GoTo(a - 2, b + 1) || GoTo(a - 2, b - 1));
-                case "black_rook":
-                    {
-                       return( LineMovePlate(1, 0, a, b)||
-                        LineMovePlate(0, 1, a, b)||
-                        LineMovePlate(-1, 0, a, b)||
-                        LineMovePlate(0, -1, a, b));
-                    }
-                case "white_rook":
-                    {
-                        return(LineMovePlate(1, 0, a, b)||
-                        LineMovePlate(0, 1, a, b)||
-                        LineMovePlate(-1, 0, a, b)||
-                        LineMovePlate(0, -1, a, b));
-                    }
-                    default:
-                    return false;
-                    
-            
-        }
-    }
 
-        public bool LineMovePlate(int xI, int yI,int a ,int b)
+    public List<GameObject> GetEnemyPieces()
+    {
+        List<GameObject> enemyPieces = new List<GameObject>();
+
+
+        if (currentPlayer == "white")
         {
-            int x = a + xI;
-            int y = b + yI;
-        if (currentPlayer == "black")
-        {
-            while (PositionOnBoard(x, y) && GetPosition(x, y) == null)
-            {
-                Debug.Log(x+" "+y);
-                x += xI;
-                y += yI;
-              
-               
-            }
-            if (PositionOnBoard(x, y) && GetPosition(x, y) != null)
-                Debug.Log(GetPosition(x, y));
-            if (PositionOnBoard(x, y) && GetPosition(x, y).GetComponent<Chessman>().player == currentPlayer)
-            {
-                if (GetPosition(x, y).name == "black_king")
-                {
-                    Debug.Log("da");
-                    return true;
-                }
-            }
-            return false;
+            enemyPieces.AddRange(playerBlack);
         }
         else
         {
-            while (PositionOnBoard(x, y) && GetPosition(x, y) == null)
-            {
-                x += xI;
-                y += yI;
-                
-            }
-            if (PositionOnBoard(x, y) && GetPosition(x, y).GetComponent<Chessman>().player == currentPlayer)
-            {
-                if (GetPosition(x, y).name == "white_king")
-                    return true;
-            }
+            enemyPieces.AddRange(playerWhite);
+        }
 
-            return false;
-        }
-        }
-    public bool GoTo(int x,int y) { 
-    if(GetPosition(x,y) != null)
-        {
-
-            if (currentPlayer == "white" && GetPosition(x, y).name == "white_king")
-                return true;
-            else if (currentPlayer == "black" && GetPosition(x, y).name == "black_king")
-                return true;
-            return false;
-        }
-    else 
-            return false; 
-    
-    
+        return enemyPieces;
     }
+    public List<GameObject> GetPlayerPieces()
+    {
+        List<GameObject> playerPieces = new List<GameObject>();
+        if(currentPlayer == "white")
+        {
+            playerPieces.AddRange(playerWhite);
+        }
+        else
+        {
+            playerPieces.AddRange(playerBlack);
+        }
 
+        return playerPieces;
+    }
+    
 }
