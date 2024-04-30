@@ -1,26 +1,26 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-
+using System;
 public class LegalMovesManager : MonoBehaviour
 {
     public Game legalMovesManage;
     public Game game;
-    /*  public void LoadThePositionFromFen(string fen)
-      {
-
-
-
-
-      }  */
+    public bool IsGameOver = false;
 
     public void Start()
     {
      ;
     }
-
+    public void SetGameOver()
+    {
+        IsGameOver = true;
+    }
+    public bool GetGameOver()
+    {
+        return IsGameOver;
+    }
     public bool IsLegal(GameObject piece,int x, int y, int a, int b)
     {
         int t = 0;
@@ -31,7 +31,7 @@ public class LegalMovesManager : MonoBehaviour
             t = 1;
             lostpiece = GetComponent<Game>().positions[a, b];
             legalMovesManage.GetComponent<Game>().positions[a, b] = piece;
-            legalMovesManage.GetComponent<Game>().positions[x, y] = null;    
+            legalMovesManage.GetComponent<Game>().positions[x, y] = null;
         }
         else if(GetPosition(a, b) == null)
         {
@@ -48,6 +48,7 @@ public class LegalMovesManager : MonoBehaviour
                     if (t == 1)
                     {
                         legalMovesManage.GetComponent<Game>().positions[a, b] = lostpiece;
+                        lostpiece=null;
                     }
                     else
                     {
@@ -67,13 +68,12 @@ public class LegalMovesManager : MonoBehaviour
         else
             legalMovesManage.GetComponent<Game>().positions[a, b] = null;
         legalMovesManage.GetComponent<Game>().positions[x, y] = piece;
+        lostpiece = null;
         return true;
     }
-    public bool IsCheckmate(string player)
+    public bool IsCheckmate()
     {
-      if(IsStalemate())
-        return true;
-        return false;
+            return IsStalemate();
 
     }
     public bool IsStalemate()
@@ -84,9 +84,9 @@ public class LegalMovesManager : MonoBehaviour
         {
             if (playerPiece != null)
             {
+                Debug.Log(playerPiece.name);
                 if (!MakeMove(playerPiece))
                 {
-
                     continue;
                 }
                 else
@@ -107,7 +107,6 @@ public class LegalMovesManager : MonoBehaviour
         {
             if (enemyPiece != null)
             {
-              
                 if (ThreatensKing(enemyPiece))
                 {
                     SetCheckPieceFast(enemyPiece);
@@ -121,7 +120,6 @@ public class LegalMovesManager : MonoBehaviour
     {
         int a = piece.GetComponent<Chessman>().GetXBoard();
         int b = piece.GetComponent<Chessman>().GetYBoard();
-        
         switch (piece.name)
         {
             case "black_king":
@@ -147,10 +145,10 @@ public class LegalMovesManager : MonoBehaviour
             case "black_pawn":
                 return (GoTo(a - 1, b - 1) || GoTo(a + 1, b - 1));
             case "white_pawn":
-                return (GoTo(a - 1, b + 1) || GoTo(a - 1, b + 1));
+                return (GoTo(a - 1, b + 1) || GoTo(a + 1, b + 1));
             case "black_knight":
             case "white_knight":
-                return (GoTo(a + 1, b + 2) || GoTo(a - 1, b + 2) || GoTo(a + 1, b - 2) || GoTo(a + 2, b - 1) || GoTo(a - 1, b + 2) || GoTo(a - 1, b - 2) || GoTo(a - 2, b + 1) || GoTo(a - 2, b - 1));
+                return (GoTo(a + 1, b + 2) || GoTo(a - 1, b + 2) || GoTo(a + 1, b - 2) || GoTo(a + 2, b - 1) || GoTo(a - 1, b - 2) || GoTo(a +2, b +1) || GoTo(a - 2, b + 1) || GoTo(a - 2, b - 1));
             case "black_rook":
                 {
                     return (LineMovePlate(1, 0, a, b) ||
@@ -193,7 +191,7 @@ public class LegalMovesManager : MonoBehaviour
             {
                 if (GetPosition(x, y).name == "black_king")
                 {
-
+                    Xkposition = x; Ykposition = y;
                     return true;
                 }
             }
@@ -210,7 +208,10 @@ public class LegalMovesManager : MonoBehaviour
             if (PositionOnBoard(x, y) && GetPosition(x, y).GetComponent<Chessman>().player == game.GetComponent<Game>().currentPlayer)
             {
                 if (GetPosition(x, y).name == "white_king")
+                {
+                    Xkposition = x; Ykposition = y;
                     return true;
+                }
             }
 
             return false;
@@ -221,14 +222,14 @@ public class LegalMovesManager : MonoBehaviour
     {
         if (PositionOnBoard(x,y) && GetPosition(x, y) != null)
         {
-
-            if (game.GetComponent<Game>().currentPlayer == "white" && GetPosition(x, y).name == "white_king")
+            if (game.GetComponent<Game>().currentPlayer == "black" && GetPosition(x, y).name == "black_king")
             {
+                Xkposition = x; Ykposition=y;
                 return true;
             }
-            else if (game.GetComponent<Game>().currentPlayer == "black" && GetPosition(x, y).name == "black_king")
+            else if (game.GetComponent<Game>().currentPlayer == "white" && GetPosition(x, y).name == "white_king")
             {
-                
+                Xkposition = x; Ykposition = y;
                 return true;
             }
             return false;
@@ -238,6 +239,8 @@ public class LegalMovesManager : MonoBehaviour
 
 
     }
+    public int Xkposition;
+    public int Ykposition;
     public bool PositionOnBoard(int x, int y){
         if(x>=0 && x<=7 && y>=0 && y<=7)
         return true;
@@ -261,14 +264,16 @@ public class LegalMovesManager : MonoBehaviour
     }
     public bool MakeMove(GameObject piece)
     {
-        int a = piece.GetComponent<Chessman>().GetXBoard();
-        int b = piece.GetComponent<Chessman>().GetYBoard();
+        float x = (piece.transform.position.x + 21.24f) / 6.06f;
+        float y = (piece.transform.position.y + 21.24f) / 6.06f;
+        int a = (int)Math.Round(x);
+        int b = (int)Math.Round(y);
         switch (piece.name)
         {
-            case "black_king":
+            case "black_king": 
             case "white_king":
-                return (TemporaryUpdate(piece, a, b, a, b - 1) || TemporaryUpdate(piece, a, b, a, b + 1) || TemporaryUpdate(piece, a, b, a - 1, b - 1) || TemporaryUpdate(piece, a, b, a - 1, b) ||
-                    TemporaryUpdate(piece, a, b, a - 1, b + 1) || TemporaryUpdate(piece, a, b, a + 1, b - 1) || TemporaryUpdate(piece, a, b, a + 1, b) || TemporaryUpdate(piece, a, b, a + 1, b + 1));
+                    return (TemporaryUpdate(piece, a, b, a, b - 1) || TemporaryUpdate(piece, a, b, a, b + 1) || TemporaryUpdate(piece, a, b, a - 1, b - 1) || TemporaryUpdate(piece, a, b, a - 1, b) ||
+                            TemporaryUpdate(piece, a, b, a - 1, b + 1) || TemporaryUpdate(piece, a, b, a + 1, b - 1) || TemporaryUpdate(piece, a, b, a + 1, b) || TemporaryUpdate(piece, a, b, a + 1, b + 1)); 
             case "black_queen":
             case "white_queen":
                 return (LMovePlate(piece,1, 0, a, b) ||
@@ -287,9 +292,9 @@ public class LegalMovesManager : MonoBehaviour
                     LMovePlate(piece, -1, 1, a, b) ||
                     LMovePlate(piece, 1, -1, a, b));
             case "black_pawn":
-                return (TemporaryUpdate(piece,a,b,a - 1, b - 1) || TemporaryUpdate(piece,a,b,a - 1, b + 1) || TemporaryUpdate(piece,a,b,a-1,b) || (a==6 && TemporaryUpdate(piece,a,b,a-2,b)));
+                return ((TemporaryUpdate(piece,a,b,a - 1, b - 1) && legalMovesManage.GetComponent<Game>().positions[a-1, b - 1] == null) || (TemporaryUpdate(piece,a,b,a + 1, b - 1) && legalMovesManage.GetComponent<Game>().positions[a+1, b - 1] == null )|| TemporaryUpdate(piece,a,b,a,b-1) || (a==6 && legalMovesManage.GetComponent<Game>().positions[a, b-1]==null && TemporaryUpdate(piece,a,b,a,b-2)));
             case "white_pawn":
-                return (TemporaryUpdate(piece, a, b,a + 1, b - 1) || TemporaryUpdate(piece, a, b, a + 1, b + 1) || TemporaryUpdate(piece, a, b, a + 1, b) || (a == 1 && TemporaryUpdate(piece, a, b, a + 2, b)));
+                return ((TemporaryUpdate(piece, a, b,a - 1, b + 1) && legalMovesManage.GetComponent<Game>().positions[a-1, b + 1] != null )|| (TemporaryUpdate(piece, a, b, a + 1, b + 1) && legalMovesManage.GetComponent<Game>().positions[a+1, b + 1] != null) || TemporaryUpdate(piece, a, b, a, b+1) || (a == 1 && legalMovesManage.GetComponent<Game>().positions[a,b+1] == null && TemporaryUpdate(piece, a, b, a, b+2)));
             case "black_knight":
             case "white_knight":
                 return (TemporaryUpdate(piece, a, b, a + 1, b + 2) || TemporaryUpdate(piece, a, b, a - 1, b + 2) || TemporaryUpdate(piece, a, b, a + 1, b - 2) || TemporaryUpdate(piece, a, b, a + 2, b - 1) || TemporaryUpdate(piece, a, b, a - 1, b + 2) 
@@ -318,30 +323,31 @@ public class LegalMovesManager : MonoBehaviour
 
     public bool LMovePlate(GameObject piece, int a, int b, int x, int y)
     {
-       
-        int q = x, r = y;
-        while (PositionOnBoard(q, r) && GetPosition(q, r) == null)
-        {
-            q +=a;
-            r +=b;
-            if (PositionOnBoard(q, r) )
+
+            int q = x, r = y;
+            while (PositionOnBoard(q, r) && GetPosition(q, r) == null)
+            {
+                q += a;
+                r += b;
+                if (PositionOnBoard(q, r))
+                {
+                    return TemporaryUpdate(piece, x, y, q, r);
+                }
+            }
+            if (PositionOnBoard(q, r) && PlayerColour(GetPosition(q, r)) != PlayerColour(piece))
             {
                 return TemporaryUpdate(piece, x, y, q, r);
             }
-        }
-        if(PositionOnBoard(q,r) && PlayerColour(GetPosition(q,r))!=PlayerColour(piece))
-        {
-            return TemporaryUpdate(piece, x, y, q, r);
-        }
-        return false;
+            return false;
     }
 
 
 
     public GameObject lostpiece;
     public bool TemporaryUpdate(GameObject piece ,int x, int y, int a, int b)
-    { 
-        int t=0,u=1;
+    {
+        int t=0;
+        Debug.Log(x+" "+y+" "+a+" "+b);
         List<GameObject> enemyPieces = legalMovesManage.GetEnemyPieces();
         if (PositionOnBoard(a, b) && GetPosition(a, b) != null && PlayerColour(GetPosition(a, b)) != PlayerColour(GetPosition(x,y)))
         {
@@ -349,6 +355,7 @@ public class LegalMovesManager : MonoBehaviour
             lostpiece = GetComponent<Game>().positions[a, b];
             legalMovesManage.GetComponent<Game>().positions[a, b] = piece;
             legalMovesManage.GetComponent<Game>().positions[x, y] = null;
+           
         }
         else if (PositionOnBoard(a, b) && GetPosition(a, b) == null)
         {
@@ -360,19 +367,24 @@ public class LegalMovesManager : MonoBehaviour
         {
             foreach (GameObject ePiece in enemyPieces)
             {
-                if (ePiece != null && (t!=1 ||ePiece!=lostpiece))
+                if (ePiece != null && (t==2 ||ePiece!=lostpiece))
                 {
                     if (ThreatensKing(ePiece))
                     {
                         legalMovesManage.GetComponent<Game>().positions[x, y] = piece;
-                        if (t == 1)
-                            legalMovesManage.GetComponent<Game>().positions[a, b] = lostpiece;
-                        else
-                            legalMovesManage.GetComponent<Game>().positions[a, b] = null;
+                        if (t == 1) 
+                        { 
+                         legalMovesManage.GetComponent<Game>().positions[a, b] = lostpiece;
+                        lostpiece = null;
+
+                        }
+
+                         else
+                        legalMovesManage.GetComponent<Game>().positions[a, b] = null;
+                        
                         return false;
-                    }
-                    else
-                        u++;
+                     }
+                   
                    
 
                 }
@@ -380,9 +392,12 @@ public class LegalMovesManager : MonoBehaviour
             }
             legalMovesManage.GetComponent<Game>().positions[x, y] = piece;
             if (t == 1)
+            {
                 legalMovesManage.GetComponent<Game>().positions[a, b] = lostpiece;
+                lostpiece = null;
+            }
             else
-                legalMovesManage.GetComponent<Game>().positions[a,b] = null;
+                legalMovesManage.GetComponent<Game>().positions[a, b] = null;
             return true;
         }
         else

@@ -1,0 +1,350 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5253074234999764590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4808216989333485670}
+  - component: {fileID: 718915802740278474}
+  - component: {fileID: 444155050083047233}
+  - component: {fileID: -2070988720588338763}
+  - component: {fileID: 7388339376145999907}
+  - component: {fileID: 3750210171814719482}
+  - component: {fileID: 5828593787459577669}
+  m_Layer: 0
+  m_Name: Controll
+  m_TagString: tag2
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4808216989333485670
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5253074234999764590}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -13.9570265, y: -9.655084, z: 16.899975}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &718915802740278474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5253074234999764590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61f4df468b6a035459adf9d3b5672422, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chessman: {fileID: 0}
+  controll: {fileID: 5253074234999764590}
+  CancelButton: {fileID: 0}
+  ptnview: {fileID: -2070988720588338763}
+  randomValue: 0
+  yourColour: 
+  opponentColour: 
+  OnlineImage: {fileID: 0}
+  WFP: {fileID: 0}
+  Tips: {fileID: 0}
+  GiveUp: {fileID: 0}
+  Draw: {fileID: 0}
+  giveUp: {fileID: 0}
+  draw: {fileID: 0}
+  yeah: {fileID: 0}
+  nope: {fileID: 0}
+  ye: {fileID: 0}
+  no: {fileID: 0}
+  multiplayer: 0
+  view: {fileID: 0}
+  drawbool: 0
+--- !u!114 &444155050083047233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5253074234999764590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7142f030871dc364989cfcd3a2991ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveThePlatescript: {fileID: 0}
+  gameManager: {fileID: 0}
+  LegalMovesManager: {fileID: 0}
+  MpMan: {fileID: 0}
+  controller: {fileID: 9127858200460470546, guid: 7a3fe8df36ebd9847864ee8a463bc99d, type: 3}
+  movePlate: {fileID: 0}
+  player: 
+  currentPlayer: white
+  MyTurn: 
+  DMPawn: {fileID: 0}
+  xBoard: -1
+  yBoard: -1
+  black_king: {fileID: 0}
+  black_queen: {fileID: 0}
+  black_bishop: {fileID: 0}
+  black_knight: {fileID: 0}
+  black_rook: {fileID: 0}
+  black_pawn: {fileID: 0}
+  white_king: {fileID: 0}
+  white_queen: {fileID: 0}
+  white_bishop: {fileID: 0}
+  white_knight: {fileID: 0}
+  white_rook: {fileID: 0}
+  white_pawn: {fileID: 0}
+  Piece: {fileID: 0}
+  Rook: {fileID: 0}
+  wCastling: 1
+  bCastling: 1
+  wqCastling: 1
+  wkCastling: 1
+  bqCastling: 1
+  bkCastling: 1
+  XR: 0
+  YR: 0
+  TXR: 0
+  TYR: 0
+  castling: 0
+  multiplayer: 0
+--- !u!114 &-2070988720588338763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5253074234999764590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 1
+  OwnershipTransfer: 1
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &7388339376145999907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5253074234999764590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd5d9b0d2b974a442a1c44f790c2fa1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chesspiece: {fileID: 9127858200460470546, guid: 7a3fe8df36ebd9847864ee8a463bc99d, type: 3}
+  csman: {fileID: 0}
+  MyTurn: a
+  EPassant: {fileID: 0}
+  playerBlack:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  playerWhite:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  currentPlayer: white
+  gameOver: 0
+  winner: 
+  FullMoves: 0
+  MadeMoves: 0
+  Fen: 
+  EnPassant: 1
+  WCastling: 0
+  BCastling: 0
+  wkCastling: 0
+  wqCastling: 0
+  bkCastling: 0
+  bqCastling: 0
+  MoveHistory: []
+  MyTime: 300
+  OppTime: 300
+  MyTimeT: {fileID: 0}
+  OppTimeT: {fileID: 0}
+  MyName: {fileID: 0}
+  OppName: {fileID: 0}
+  WinnerT: {fileID: 0}
+  OppNamet: 
+  MyNamet: 
+--- !u!114 &3750210171814719482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5253074234999764590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb84fcaae7f88784f986e99e3b52a053, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 0}
+  lastMovePlate: {fileID: 1964440455847708606, guid: f2dc8c7c2fe3ad748b2146a5945f92ec, type: 3}
+  movePlate: {fileID: 0}
+  legalMovesManager: {fileID: 0}
+  test: {fileID: 0}
+  IX: 0
+  IY: 0
+  attack: 0
+  PwnTQn: 0
+  piece: {fileID: 0}
+  enPassant: 0
+  DMPawn: {fileID: 0}
+  Rook: {fileID: 0}
+  castling: 0
+  xr: 0
+  yr: 0
+  tyr: 0
+  txr: 0
+  checkl: 0
+  source: {fileID: 1467648238147565499, guid: 051a7ed8f1179ab47a8e68bb29499b91, type: 3}
+  move: {fileID: 8300000, guid: f9117cc86d1cc414caecc05e79be0fcd, type: 3}
+  moveattack: {fileID: 8300000, guid: 4328e6c5a9ac2f34aaf00e7732377ce4, type: 3}
+  check: {fileID: 8300000, guid: 8802e8e115990d945888f4169df26311, type: 3}
+  a: 0
+  b: 0
+--- !u!82 &5828593787459577669
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5253074234999764590}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 8802e8e115990d945888f4169df26311, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

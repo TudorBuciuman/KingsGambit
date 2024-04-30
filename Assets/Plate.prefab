@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 8855120557457782238}
   - component: {fileID: 5233816078043113460}
   - component: {fileID: 1744898652579481424}
-  - component: {fileID: -1095120376392816818}
+  - component: {fileID: 7639445534793773226}
+  - component: {fileID: 7941453286260620145}
   m_Layer: 0
   m_Name: Plate
   m_TagString: MovePlate
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 889220124620453694}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -2}
+  m_LocalPosition: {x: 0, y: 0, z: 80}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 09b6c2ef2bbbb3249bb1b5a59ee961ea, type: 3}
+  m_Sprite: {fileID: -4075827059431164508, guid: 09b6c2ef2bbbb3249bb1b5a59ee961ea, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -146,6 +147,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
+  lastMovePlate: {fileID: 1964440455847708606, guid: f2dc8c7c2fe3ad748b2146a5945f92ec, type: 3}
+  movePlate: {fileID: 0}
+  legalMovesManager: {fileID: 0}
   test: {fileID: 0}
   IX: 0
   IY: 0
@@ -160,11 +164,14 @@ MonoBehaviour:
   yr: 0
   tyr: 0
   txr: 0
-  source: {fileID: -1095120376392816818}
+  checkl: 0
+  source: {fileID: 1467648238147565499, guid: 051a7ed8f1179ab47a8e68bb29499b91, type: 3}
   move: {fileID: 8300000, guid: f9117cc86d1cc414caecc05e79be0fcd, type: 3}
   moveattack: {fileID: 8300000, guid: 4328e6c5a9ac2f34aaf00e7732377ce4, type: 3}
   check: {fileID: 8300000, guid: 8802e8e115990d945888f4169df26311, type: 3}
---- !u!82 &-1095120376392816818
+  a: 0
+  b: 0
+--- !u!82 &7639445534793773226
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -173,9 +180,9 @@ AudioSource:
   m_GameObject: {fileID: 889220124620453694}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  OutputAudioMixerGroup: {fileID: 24300002, guid: da7e8dae9decfb2409f14d890caa7430, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 8802e8e115990d945888f4169df26311, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -260,3 +267,35 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7941453286260620145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889220124620453694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61f4df468b6a035459adf9d3b5672422, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chessman: {fileID: 0}
+  controll: {fileID: 5253074234999764590, guid: 083e680ec606d154b9e85dffc678c9cb, type: 3}
+  CancelButton: {fileID: 0}
+  ptnview: {fileID: 0}
+  randomValue: 0
+  yourColour: 
+  opponentColour: 
+  OnlineImage: {fileID: 0}
+  WFP: {fileID: 0}
+  Tips: {fileID: 0}
+  GiveUp: {fileID: 0}
+  Draw: {fileID: 0}
+  giveUp: {fileID: 0}
+  draw: {fileID: 0}
+  yeah: {fileID: 0}
+  nope: {fileID: 0}
+  ye: {fileID: 0}
+  no: {fileID: 0}
+  multiplayer: 0
+  view: {fileID: 0}

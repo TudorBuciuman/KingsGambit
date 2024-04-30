@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: f4bd6c24648e05c4fa838da70f847a76
+AssetOrigin:
+  serializedVersion: 1
+  productId: 267958
+  packageName: Photon Fusion
+  packageVersion: 2.0.0
+  assetPath: Assets/Photon/Fusion/CodeGen/Fusion.CodeGen.Trigger.fusionweavertrigger
+  uploadId: 639681
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {instanceID: 0}

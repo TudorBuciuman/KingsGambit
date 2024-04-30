@@ -5,11 +5,17 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - controller: {instanceID: 0}
+  - lastMovePlate: {instanceID: 0}
+  - movePlate: {instanceID: 0}
+  - legalMovesManager: {instanceID: 0}
   - test: {instanceID: 0}
   - piece: {instanceID: 0}
   - DMPawn: {instanceID: 0}
   - Rook: {instanceID: 0}
-  - source: {instanceID: 0}
+  - source: {fileID: 1467648238147565499, guid: 051a7ed8f1179ab47a8e68bb29499b91, type: 3}
+  - move: {instanceID: 0}
+  - moveattack: {instanceID: 0}
+  - check: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

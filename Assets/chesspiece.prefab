@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 9127858200460470546}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.6, y: -3.3, z: -1}
+  m_LocalPosition: {x: -11.6, y: -3.3, z: 80}
   m_LocalScale: {x: 0.23, y: 0.23, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -102,10 +102,12 @@ MonoBehaviour:
   MoveThePlatescript: {fileID: 0}
   gameManager: {fileID: 0}
   LegalMovesManager: {fileID: 0}
+  MpMan: {fileID: 0}
   controller: {fileID: 0}
   movePlate: {fileID: 889220124620453694, guid: e25be6a11806d4149a8a03fcf7410b15, type: 3}
   player: 
   currentPlayer: white
+  MyTurn: 0
   DMPawn: {fileID: 0}
   xBoard: -1
   yBoard: -1
@@ -123,17 +125,18 @@ MonoBehaviour:
   white_pawn: {fileID: 21300000, guid: d5e8d908fada76d43aec313790d7dbba, type: 3}
   Piece: {fileID: 0}
   Rook: {fileID: 0}
-  wCastling: 1
-  bCastling: 1
-  wr00Castling: 1
-  wr70Castling: 1
-  br07Castling: 1
-  br77Castling: 1
+  wCastling: 0
+  bCastling: 0
+  wqCastling: 1
+  wkCastling: 1
+  bqCastling: 1
+  bkCastling: 1
   XR: 0
   YR: 0
   TXR: 0
   TYR: 0
   castling: 0
+  multiplayer: 0
 --- !u!114 &5418897422322895827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,6 +151,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   legalMovesManage: {fileID: 0}
   game: {fileID: 0}
+  IsGameOver: 0
+  Xkposition: 0
+  Ykposition: 0
   CheckPiece: {fileID: 0}
   lostpiece: {fileID: 0}
 --- !u!61 &7855791429296137506
