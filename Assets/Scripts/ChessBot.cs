@@ -17,16 +17,18 @@ public class ChessBot : MonoBehaviour
         int r=BotPieces.Count;
         System.Random systemRandom = new System.Random();
         int t;
-        do
+        if (!game.GetComponent<Game>().IsGameOver())
         {
-            t = 0;
+            do
+            {
+                t = 0;
 
-            int y=systemRandom.Next(0, r-1);
-            t=SearchForMove(BotPieces[y]);
-            t = IsOkeyDokey();
-            Debug.Log(t);
-        } while (t==0);
-
+                int y = systemRandom.Next(0, r - 1);
+                Debug.Log(BotPieces[t]);
+                t = SearchForMove(BotPieces[y]);
+                t = IsOkeyDokey();
+            } while (t == 0);
+        }
         Q = 0;
     }
 
@@ -108,7 +110,6 @@ public class ChessBot : MonoBehaviour
             }
             if (PositionOnBoard(q, r) && PlayerColour(GetPosition(q, r)) != PlayerColour(piece))
             {
-                Debug.Log(PlayerColour(GetPosition(q, r)) + " " + q + " " + r + " " + PlayerColour(piece));
                 PointMovePlate(x, y, q, r);
             }
         }
@@ -208,7 +209,6 @@ public class ChessBot : MonoBehaviour
 
     public void EnPassant(int matrixX, int matrixY, int X, int Y)
     {
-        Debug.Log("why, just to suffer..");
         float x = matrixX;
         float y = matrixY;
         x *= 6.06f;
@@ -304,6 +304,7 @@ public class ChessBot : MonoBehaviour
     {
         if (Q == 0)
         {
+            Debug.Log(GetPosition(a,b));
             Game gm = controller.GetComponent<Game>();
 
             if (gm.PositionOnBoard(x, y))
@@ -326,15 +327,15 @@ public class ChessBot : MonoBehaviour
     }
     public void MovePlateSpawn(GameObject piece,int matrixX, int matrixY, int i, int j)
     {
-        GameObject Piece = piece;
         LegalMovesManager =controller.GetComponent<LegalMovesManager>();
-       if (Q==0 && LegalMovesManager.IsLegal(Piece, i, j, matrixX,matrixY))
+       if (Q==0 && LegalMovesManager.IsLegal(piece, i, j, matrixX,matrixY))
         {
           
             MoveThePlate mpScript = controller.GetComponent<MoveThePlate>();
             mpScript.attack = false;
-            mpScript.piece = Piece;
-            if (Piece.name == "white_pawn" || Piece.name == "black_pawn")
+            mpScript.piece = piece;
+            Debug.Log(piece);
+            if (piece.name == "white_pawn" || piece.name == "black_pawn")
             {
                 if (matrixY == 7 || matrixY == 0)
                 {
@@ -363,7 +364,6 @@ public class ChessBot : MonoBehaviour
             // castling = false;
             controller.GetComponent<MoveThePlate>().MakeMove();
             controller.GetComponent<Game>().currentPlayer = "white";
-            Debug.Log(matrixX + " " + matrixY);
             controller.GetComponent<ChessBot>().Q = 1;
             
             return;
@@ -372,14 +372,13 @@ public class ChessBot : MonoBehaviour
     }
     public void MovePlateAttackSpawn(GameObject piece,int matrixX, int matrixY, int i, int j)
     {
-        GameObject Piece = piece;
         LegalMovesManager = controller.GetComponent<LegalMovesManager>();
-        if (Q==0 && LegalMovesManager.IsLegal(Piece, i, j, matrixX, matrixY))
+        if (Q==0 && LegalMovesManager.IsLegal(piece, i, j, matrixX, matrixY))
         {
             MoveThePlate mpScript = controller.GetComponent<MoveThePlate>();
             mpScript.attack = true;
-            mpScript.piece = Piece;
-            if (Piece.name == "white_pawn" || Piece.name == "black_pawn")
+            mpScript.piece = piece;
+            if (piece.name == "white_pawn" || piece.name == "black_pawn")
             {
                 if (matrixY == 7 || matrixY == 0)
                 {
@@ -404,7 +403,6 @@ public class ChessBot : MonoBehaviour
             mpScript.IX = i;
             mpScript.IY = j;
             mpScript.SetReference(game.GetPosition(i, j));
-            Debug.Log(matrixX + " " + matrixY);
             mpScript.SetCoords(matrixX, matrixY);
             // castling = false;
             controller.GetComponent<MoveThePlate>().MakeMove();

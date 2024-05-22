@@ -68,7 +68,7 @@ public class MoveThePlate : MonoBehaviour
         GameObject[] MM = GameObject.FindGameObjectsWithTag("tag2");
         if (MM.Length>1 || PlayerPrefs.GetString("Multiplayer")=="yes")
             controller.GetComponent<MultiplayerManager>().SendMove(matrixX, matrixY, IX, IY);
-        else
+        else if(!legalMovesManager.GetComponent<Game>().IsGameOver())
         {
             controller = GameObject.FindGameObjectWithTag("GameController");
             controller.GetComponent<ChessBot>().BotTurn();
@@ -76,7 +76,6 @@ public class MoveThePlate : MonoBehaviour
 
     }
     public void MakeMove() {
-        Debug.Log(this);
             controller = GameObject.FindGameObjectWithTag("GameController");
          
             if (attack == true)
@@ -138,12 +137,10 @@ public class MoveThePlate : MonoBehaviour
             }
             controller.GetComponent<Game>().SetPosition(piece);
             controller.GetComponent<Game>().NextTurn();
-            piece.GetComponent<Chessman>().DestroyMovePlates();
-        Debug.Log("aproape");
-       
+            piece.GetComponent<Chessman>().DestroyMovePlates();       
            if (PwnTQn)
             {
-                piece.GetComponent<Chessman>().PawnToQueen();
+                piece.GetComponent<Chessman>().PawnToQueen(piece);
             }
             else if (castling)
             {
@@ -171,26 +168,21 @@ public class MoveThePlate : MonoBehaviour
             b *= 6.06f;
             a -= 21.24f;
             b -= 21.24f;
-            Debug.Log(controller.GetComponent<LegalMovesManager>().GetCheckPieceFast());
             if (legalMovesManager.IsCheckmate())
                 {
                 controller.GetComponent<Game>().Winner();
                     legalMovesManager.SetGameOver();
                 }
-                else
-                {
-                    Debug.Log("sah " + controller.GetComponent<Game>().currentPlayer);
-                }
             checkl = true;
-            Debug.Log(this);
             PlaySound(check);
             }
          
         
          else if (legalMovesManager.GetComponent<LegalMovesManager>().IsStalemate() || controller.GetComponent<Game>().GetFiftyMoveRule())
             {
-                Debug.Log("pat");
+
                 legalMovesManager.SetGameOver();
+                controller.GetComponent<Game>().Draw();
             }
           
             float x = matrixX;
@@ -210,11 +202,11 @@ public class MoveThePlate : MonoBehaviour
             {
                 Destroy(lastMovePlat[i]);
             }
-            GameObject LMP=Instantiate(lastMovePlate, new Vector3(x, y, 82), Quaternion.identity);
-            GameObject mp=Instantiate(lastMovePlate, new Vector3(X, Y, 82), Quaternion.identity);
+            GameObject LMP=Instantiate(lastMovePlate, new Vector3(x, y, 81), Quaternion.identity);
+            GameObject mp=Instantiate(lastMovePlate, new Vector3(X, Y, 81), Quaternion.identity);
             if(checkl)
             {
-                GameObject kng = Instantiate(lastMovePlate, new Vector3(a, b, 80), Quaternion.identity);
+                GameObject kng = Instantiate(lastMovePlate, new Vector3(a, b, 81), Quaternion.identity);
                 kng.GetComponent<SpriteRenderer>().color = new Color(1.0f, 0.4f, 0.0f, 1.0f);
                 checkl = false;
             }
@@ -271,23 +263,68 @@ public class MoveThePlate : MonoBehaviour
             }
             if (piece.name == "white_pawn" && Y == 4 && b == 5)
             {
-                if (controller.GetComponent<Game>().positions[a,b] == null)
+                if (controller.GetComponent<Game>().positions[a, b] == null)
                 {
 
-                    DMPawn = controller.GetComponent<Game>().positions[a,Y];
-                   
+                    DMPawn = controller.GetComponent<Game>().positions[a, Y];
+
                     attack = true;
                     enPassant = true;
                 }
-               
+
             }
             else if (piece.name == "black_pawn" && Y == 3 && b == 2)
             {
-                if (controller.GetComponent<Game>().positions[a,b] == null)
+                if (controller.GetComponent<Game>().positions[a, b] == null)
                 {
-                    DMPawn = controller.GetComponent<Game>().positions[a,Y];
+                    DMPawn = controller.GetComponent<Game>().positions[a, Y];
                     attack = true;
                     enPassant = true;
+                }
+            }
+        }
+
+        else if (piece.name == "white_king" || piece.name == "black_king")
+        {
+            if (piece.name == "white_king" && X == 4 && Y == 0)
+            {
+                if (a == 2 && b == 0)
+                {
+                    Rook = controller.GetComponent<Game>().GetPosition(0, 0);
+                    castling = true;
+                    xr = 0;
+                    yr = 0;
+                    txr = 3;
+                    tyr = 0;
+                }
+                else if (a == 6 && b == 0)
+                {
+                    Rook = controller.GetComponent<Game>().GetPosition(7, 0);
+                    castling = true;
+                    xr = 7;
+                    yr = 0;
+                    txr = 5;
+                    tyr = 0;
+                }
+            }
+            else if (piece.name == "black_king" && X == 4 && Y == 7)
+            {
+                if (a == 2 && b == 7)
+                {                    Rook = controller.GetComponent<Game>().GetPosition(0, 7);
+                    castling = true;
+                    xr = 0;
+                    yr = 7;
+                    txr = 3;
+                    tyr = 7;
+                }
+                else if (a == 6 && b == 7)
+                {
+                    Rook = controller.GetComponent<Game>().GetPosition(7, 7);
+                    castling = true;
+                    xr = 7;
+                    yr = 7;
+                    txr = 5;
+                    tyr = 7;
                 }
             }
         }

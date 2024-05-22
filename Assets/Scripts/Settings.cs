@@ -42,14 +42,11 @@ public class Settings : MonoBehaviour
         user.gameObject.SetActive(true);
         UI.gameObject.SetActive(true);
         Themesc.gameObject.SetActive(true);
-        
-       // Debug.Log(SoundOn.text);
         SetSound.gameObject.SetActive(true);
         SetUsername.gameObject.SetActive(true);
         if (PlayerPrefs.GetString("username")==null)
         PlayerPrefs.SetString("username", "Tudor");
         Username.text = PlayerPrefs.GetString("username");
-      //  SoundOn.text = PlayerPrefs.GetString("IsSound");
     }
     public void SetTheUsername()
     {

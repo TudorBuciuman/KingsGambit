@@ -581,7 +581,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &320342143
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1089,6 +1089,9 @@ MonoBehaviour:
   nope: {fileID: 0}
   ye: {fileID: 0}
   no: {fileID: 0}
+  MyName: 
+  MyTurn: 
+  OppName: 
   multiplayer: 0
   view: {fileID: 0}
   drawbool: 0
@@ -1653,7 +1656,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: 
 --- !u!222 &770476531
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2054,7 +2057,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: jefdjfndf
+  m_Text: 
 --- !u!222 &1318971572
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2133,7 +2136,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: fgfgfg
+  m_Text: 
 --- !u!222 &1397587327
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2495,10 +2498,10 @@ MonoBehaviour:
   MoveHistory: []
   MyTime: 300
   OppTime: 300
-  MyTimeT: {fileID: 0}
-  OppTimeT: {fileID: 0}
-  MyName: {fileID: 0}
-  OppName: {fileID: 0}
+  MyTimeT: {fileID: 1318971571}
+  OppTimeT: {fileID: 1397587326}
+  MyName: {fileID: 320342142}
+  OppName: {fileID: 770476530}
   WinnerT: {fileID: 1773696353}
   OppNamet: 
   MyNamet: 
@@ -2547,6 +2550,9 @@ MonoBehaviour:
   nope: {fileID: 0}
   ye: {fileID: 1739878898}
   no: {fileID: 1495603368}
+  MyName: 
+  MyTurn: 
+  OppName: 
   multiplayer: 0
   view: {fileID: 0}
   drawbool: 0
@@ -2636,6 +2642,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1894385299}
         m_TargetAssemblyTypeName: MultiplayerManager, Assembly-CSharp
         m_MethodName: RUSure
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: no
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1894385299}
+        m_TargetAssemblyTypeName: MultiplayerManager, Assembly-CSharp
+        m_MethodName: IGotTired
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3578,6 +3596,9 @@ MonoBehaviour:
   nope: {fileID: 589268406}
   ye: {fileID: 1739878898}
   no: {fileID: 1495603368}
+  MyName: 
+  MyTurn: 
+  OppName: 
   multiplayer: 0
   view: {fileID: 0}
   drawbool: 0

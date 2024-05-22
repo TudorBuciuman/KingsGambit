@@ -42,22 +42,25 @@ public class Game : MonoBehaviour
 
     public void MuliplayerThings()
     {
-        if (tag == "tag3")
+        if (CompareTag("GameController"))
         {
-            GameObject[] controller = GameObject.FindGameObjectsWithTag("tag2");
-            MyName.text = controller[0].GetComponent<Game>().MyNamet;
-            OppName.text = controller[0].GetComponent<Game>().OppNamet;
-            MyTimeT.gameObject.SetActive(true);
-            OppName.gameObject.SetActive(true);
-            MyName.gameObject.SetActive(true);
-            OppTimeT.gameObject.SetActive(true);
-            StartTheGame();
-            StartCoroutine(ClockCoroutine());
+            GameObject controller = GameObject.FindGameObjectWithTag("tag2");
+            MyName.text = PlayerPrefs.GetString("username");
+            OppName.text = controller.GetComponent<MultiplayerManager>().OppName;
+            gameObject.GetComponent<Game>().MyTimeT.gameObject.SetActive(true);
+            gameObject.GetComponent<Game>().OppName.gameObject.SetActive(true);
+            gameObject.GetComponent<Game>().MyName.gameObject.SetActive(true);
+            gameObject.GetComponent<Game>().OppTimeT.gameObject.SetActive(true);
+           StartCoroutine(ClockCoroutine());
         }
     }
     public IEnumerator ClockCoroutine()
     {
-        while (IsGameOver())
+        GameObject controller = GameObject.FindGameObjectWithTag("tag2");
+        MyTimeT.text = FormatTime(MyTime);
+        OppTimeT.text = FormatTime(OppTime);
+        MyTurn =controller.GetComponent<MultiplayerManager>().MyTurn;
+        while (!IsGameOver())
         {
             yield return new WaitForSeconds(1f);
             if (MyTurn == currentPlayer)
@@ -74,33 +77,25 @@ public class Game : MonoBehaviour
             {
                 gameOver = true;
 
+                WinnerText(controller.GetComponent<MultiplayerManager>().OppName);
                 break;
             }
             else if (OppTime <= 0)
             {
                 gameOver = true;
-
+                WinnerText(controller.GetComponent<MultiplayerManager>().MyName);
                 break;
             }
         }
     }
     public void Awake()
     {
-        if(tag=="GameController")
+        Application.targetFrameRate = 20;
+        if (tag=="GameController")
             StartTheGame();
     }
     public void StartTheGame()
     {
-       
-            for (int i = 0; i <= 7; i++)
-            {
-                for (int j = 0; j <= 7; j++)
-                {
-                    positions[i, j] = null;
-                }
-            }
-            
-
             LoadThePositionFromFen(fen);
 
 
@@ -112,6 +107,8 @@ public class Game : MonoBehaviour
             {
                 SetPosition(playerWhite[i]);
             }
+        
+
         }
     
     GameObject Create(string name, int x, int y)
@@ -183,12 +180,7 @@ public class Game : MonoBehaviour
 
     public void WinnerText(string player)
     {
-        GameObject controller = GameObject.FindGameObjectWithTag("GameController");
-        if (OppNamet==player)
-        winner = MyNamet;
-        else 
-        winner = OppNamet;
-        WinnerT.text = currentPlayer + " has won";
+        WinnerT.text = player + " has won";
         WinnerT.gameObject.SetActive(true);
         gameOver = true;
     }
@@ -205,24 +197,7 @@ public class Game : MonoBehaviour
         int sec = Mathf.FloorToInt(time % 60);
         return string.Format("{0:00}:{1:00}", min, sec);
     }
-    /*   public void Update()
-       {
-           if (IsGameOver())
-           {
-               Debug.Log("checkmate");  
-               GameObject.FindGameObjectWithTag("Winner").GetComponent<Text>().enabled = true;
-               GameObject.FindGameObjectWithTag("Winner").GetComponent<Text>().text = winner + " has won";
-               GameObject.FindGameObjectWithTag("Restart").GetComponent<Text>().enabled = true;
-               enabled=false;
-           }
-           if (IsGameOver() == true && Input.GetMouseButtonDown(0))
-           {
 
-               SceneManager.LoadScene("Chess board");
-               gameOver = false;
-           }
-       }
-    */
     [System.Serializable]
     public class Move
     {
@@ -338,269 +313,285 @@ public class Game : MonoBehaviour
     }
     public void LoadThePositionFromFen(string fen)
     {
-        GameObject controller = GameObject.FindGameObjectWithTag("tag2");
-
-        if (PlayerPrefs.GetString("Continue") == "yes" && SceneManager.GetActiveScene().name!="Multiplayer lobby")
-        {
-            fen= PlayerPrefs.GetString("LastScene");
-        }
-        int y = fen.Length;
-        int u = 0;
-        int w = 0, b = 0;
-        for (int i = 0; i <= 63; i++)
-        {
-            if (char.IsDigit(fen[u]))
+            GameObject controller = GameObject.FindGameObjectWithTag("GameController");
+            if (PlayerPrefs.GetString("Continue") == "yes" && SceneManager.GetActiveScene().name != "Multiplayer lobby")
             {
-                i += (int)(char.GetNumericValue(fen[u])) - 1;
-                u++;
-
+                fen = PlayerPrefs.GetString("LastScene");
+            Debug.Log(fen);
+            
             }
-            else if ((int)(fen[u]) == '/')
+            if(SceneManager.GetActiveScene().name == "Multiplayer lobby")
+            MuliplayerThings();
+            int y = fen.Length;
+            int u = 0;
+            int w = 0, b = 0;
+            for (int i = 0; i <= 63; i++)
             {
-                u++;
-                i--;
-            }
-            else if ((int)(fen[u]) == 'K')
-            {
-                playerWhite[w++] = Create("white_king", (i % 8), (7 - (i / 8)));
-                u++;
-            }
-            else if ((int)(fen[u]) == 'Q')
-            {
-                playerWhite[w++] = Create("white_queen", (i % 8), (7 - (i / 8)));
-                u++;
-            }
-            else if ((int)(fen[u]) == 'R')
-            {
-                playerWhite[w++] = Create("white_rook", (i % 8), (7 - (i / 8)));
-                u++;
-            }
-            else if ((int)(fen[u]) == 'B')
-            {
-                playerWhite[w++] = Create("white_bishop", (i % 8), (7 - (i / 8)));
-                u++;
-            }
-            else if ((int)(fen[u]) == 'N')
-            {
-                playerWhite[w++] = Create("white_knight", (i % 8), (7 - (i / 8)));
-                u++;
-            }
-            else if ((int)(fen[u]) == 'P')
-            {
-                playerWhite[w++] = Create("white_pawn", (i % 8), (7 - (i / 8)));
-                u++;
-            }
-
-            else if ((int)(fen[u]) == 'k')
-            {
-                playerBlack[b++] = Create("black_king", (i % 8), (7 - (i / 8)));
-                u++;
-            }
-            else if ((int)(fen[u]) == 'q')
-            {
-                playerBlack[b++] = Create("black_queen", (i % 8), (7 - (i / 8)));
-                u++;
-            }
-            else if ((int)(fen[u]) == 'r')
-            {
-                playerBlack[b++] = Create("black_rook", (i % 8), (7 - (i / 8)));
-                u++;
-            }
-            else if ((int)(fen[u]) == 'b')
-            {
-                playerBlack[b++] = Create("black_bishop", (i % 8), (7 - (i / 8)));
-                u++;
-            }
-            else if ((int)(fen[u]) == 'n')
-            {
-                playerBlack[b++] = Create("black_knight", (i % 8), (7 - (i / 8)));
-                u++;
-            }
-            else if ((int)(fen[u]) == 'p')
-            { 
-                playerBlack[b++] = Create("black_pawn", (i % 8), (7 - (i / 8) ) );
-                u++;
-            }
-
-        }
-        if (u < y)
-        {
-            if (fen[u] == ' ')
-                u++;
-
-            if ((int)(fen[u]) == 'b')
-            {
-                currentPlayer = "black";
-            }
-            u += 2;
-            int ctl = 0;
-            while (u < y)
-            {
-                if (ctl == 0 && (int)(fen[u]) == '-')
+                if (char.IsDigit(fen[u]))
                 {
-                    ctl = 1;
-                    if ((int)(fen[u]) == '-')
-                    {
-                        WCastling = false;
-                        BCastling = false;
-                        chesspiece.GetComponent<Chessman>().bCastling = false;
-                        chesspiece.GetComponent<Chessman>().wCastling = false;
-                    }
+                    i += (int)(char.GetNumericValue(fen[u])) - 1;
+                    u++;
+
+                }
+                else if ((int)(fen[u]) == '/')
+                {
+                    u++;
+                    i--;
+                }
+                else if ((int)(fen[u]) == 'K')
+                {
+                    playerWhite[w++] = Create("white_king", (i % 8), (7 - (i / 8)));
                     u++;
                 }
                 else if ((int)(fen[u]) == 'Q')
                 {
-                    WCastling = true;
-                    chesspiece.GetComponent<Chessman>().wCastling = true;
-                    wqCastling = true;
-                    chesspiece.GetComponent<Chessman>().wqCastling = true;
+                    playerWhite[w++] = Create("white_queen", (i % 8), (7 - (i / 8)));
+                    u++;
                 }
-                else if ((int)(fen[u]) == 'K')
+                else if ((int)(fen[u]) == 'R')
                 {
-                    WCastling = true;
-                    chesspiece.GetComponent<Chessman>().wCastling = true;
-                    wkCastling = true;
-                    chesspiece.GetComponent<Chessman>().wkCastling = true;
+                    playerWhite[w++] = Create("white_rook", (i % 8), (7 - (i / 8)));
+                    u++;
+                }
+                else if ((int)(fen[u]) == 'B')
+                {
+                    playerWhite[w++] = Create("white_bishop", (i % 8), (7 - (i / 8)));
+                    u++;
+                }
+                else if ((int)(fen[u]) == 'N')
+                {
+                    playerWhite[w++] = Create("white_knight", (i % 8), (7 - (i / 8)));
+                    u++;
+                }
+                else if ((int)(fen[u]) == 'P')
+                {
+                    playerWhite[w++] = Create("white_pawn", (i % 8), (7 - (i / 8)));
+                    u++;
+                }
 
+                else if ((int)(fen[u]) == 'k')
+                {
+                    playerBlack[b++] = Create("black_king", (i % 8), (7 - (i / 8)));
+                    u++;
                 }
                 else if ((int)(fen[u]) == 'q')
                 {
-                    BCastling = true;
-                    chesspiece.GetComponent<Chessman>().bCastling = true;
-                    bqCastling = true;
-                    chesspiece.GetComponent<Chessman>().bqCastling = true;
-                }
-                else if ((int)(fen[u]) == 'k')
-                {
-                    BCastling = true;
-                    chesspiece.GetComponent<Chessman>().bCastling = true;
-                    bkCastling = true;
-                    chesspiece.GetComponent<Chessman>().bkCastling = true;
-                }
-                else if ((int)(fen[u]) == ' ' && (int)(fen[u + 1]) == '-')
-                {
-
-                    EnPassant = false;
-                }
-                else if ((int)(fen[u]) == ' ')
-                {
-                    if (EnPassant)
-                    {
-                        u++;
-                        int p = (int)(fen[u]) - (int)('a');
-                        u++;
-                        int q = (int)(fen[u]) - (int)('1');
-                        EPassant = positions[p, q];
-
-                    }
-
+                    playerBlack[b++] = Create("black_queen", (i % 8), (7 - (i / 8)));
                     u++;
-                    MadeMoves = 0;
-                    while (u < y && (int)(fen[u]) != ' ')
-                    {
-                        MadeMoves = (int)(char.GetNumericValue(fen[u])) + MadeMoves * 10;
-                        u++;
-                    }
+                }
+                else if ((int)(fen[u]) == 'r')
+                {
+                    playerBlack[b++] = Create("black_rook", (i % 8), (7 - (i / 8)));
                     u++;
-                    while (u < y && (int)(fen[u]) != ' ')
-                    {
-                        FullMoves = (int)(char.GetNumericValue(fen[u])) + FullMoves * 10;
-                        u++;
-                    }
+                }
+                else if ((int)(fen[u]) == 'b')
+                {
+                    playerBlack[b++] = Create("black_bishop", (i % 8), (7 - (i / 8)));
+                    u++;
+                }
+                else if ((int)(fen[u]) == 'n')
+                {
+                    playerBlack[b++] = Create("black_knight", (i % 8), (7 - (i / 8)));
+                    u++;
+                }
+                else if ((int)(fen[u]) == 'p')
+                {
+                    playerBlack[b++] = Create("black_pawn", (i % 8), (7 - (i / 8)));
+                    u++;
                 }
 
-
-                u++;
             }
-        }
-        else
-        {
-            WCastling = true;
-            BCastling = true;
-            wkCastling = true;
-            wqCastling = true;
-            bkCastling = true;
-            bqCastling = true;
-        }
+            if (u < y)
+            {
+                if (fen[u] == ' ')
+                    u++;
+
+                if ((int)(fen[u]) == 'b')
+                {
+                    currentPlayer = "black";
+                }
+                u += 2;
+                int ctl = 0;
+                while (u < y)
+                {
+                    if (ctl == 0 && (int)(fen[u]) == '-')
+                    {
+                        ctl = 1;
+                        if ((int)(fen[u]) == '-')
+                        {
+                            controller.GetComponent<Game>().WCastling = false;
+                            controller.GetComponent<Game>().BCastling = false;
+                            controller.GetComponent<Game>().BCastling = false;
+                            controller.GetComponent<Game>().WCastling = false;
+                        }
+                        u++;
+                    }
+                    else if ((int)(fen[u]) == 'Q')
+                    {
+                    ctl = 1;
+                        controller.GetComponent<Game>().WCastling = true;
+                        controller.GetComponent<Game>().WCastling = true;
+                        controller.GetComponent<Game>().wqCastling = true;
+                        controller.GetComponent<Game>().wqCastling = true;
+                    }
+                    else if ((int)(fen[u]) == 'K')
+                    {
+                    ctl = 1;
+                        controller.GetComponent<Game>().WCastling = true;
+                        controller.GetComponent<Game>().WCastling = true;
+                        controller.GetComponent<Game>().wkCastling = true;
+                        controller.GetComponent<Game>().wkCastling = true;
+
+                    }
+                    else if ((int)(fen[u]) == 'q')
+                    {
+                    ctl = 1;
+                        controller.GetComponent<Game>().BCastling = true;
+                        controller.GetComponent<Game>().BCastling = true;
+                        controller.GetComponent<Game>().bqCastling = true;
+                        controller.GetComponent<Game>().bqCastling = true;
+                    }
+                    else if ((int)(fen[u]) == 'k')
+                    {
+                    ctl = 1;
+                        controller.GetComponent<Game>().BCastling = true;
+                        controller.GetComponent<Game>().BCastling = true;
+                        controller.GetComponent<Game>().bkCastling = true;
+                        controller.GetComponent<Game>().bkCastling = true;
+                    }
+                    else if ((int)(fen[u]) == ' ' && (int)(fen[u + 1]) == '-')
+                    {
+
+                        controller.GetComponent<Game>().EnPassant = false;
+                    }
+                    else if ((int)(fen[u]) == ' ')
+                    {
+                        if (EnPassant)
+                        {
+                            u++;
+                            int p = (int)(fen[u]) - (int)('a');
+                            u++;
+                            int q = (int)(fen[u]) - (int)('1');
+                            EPassant = positions[p, q];
+
+                        }
+
+                        u++;
+                        MadeMoves = 0;
+                        while (u < y && (int)(fen[u]) != ' ')
+                        {
+                            MadeMoves = (int)(char.GetNumericValue(fen[u])) + MadeMoves * 10;
+                            u++;
+                        }
+                        u++;
+                        while (u < y && (int)(fen[u]) != ' ')
+                        {
+                            FullMoves = (int)(char.GetNumericValue(fen[u])) + FullMoves * 10;
+                            u++;
+                        }
+                    }
+
+
+                    u++;
+                }
+            }
+            else
+            {
+                controller.GetComponent<Game>().WCastling = true;
+                controller.GetComponent<Game>().BCastling = true;
+                controller.GetComponent<Game>().wkCastling = true;
+                controller.GetComponent<Game>().wqCastling = true;
+                controller.GetComponent<Game>().bkCastling = true;
+                controller.GetComponent<Game>().bqCastling = true;
+            }
+        
     }
     public void SaveFenBoard()
     {
-        char[] TheFen = new char[64];
-        int u = 0, emptySquareCount = 0;
-
-        for (int j = 7; j >= 0; j--)
+        if (!IsGameOver())
         {
-            for (int i = 0; i <= 7; i++)
-            {
-                if (positions[i, j] != null)
-                {
-                    if (emptySquareCount > 0)
-                    {
-                        TheFen[u++] = (char)('0' + emptySquareCount);
-                        emptySquareCount = 0;
-                    }
 
-                    switch (positions[i, j].name)
+
+            char[] TheFen = new char[64];
+            int u = 0, emptySquareCount = 0;
+
+            for (int j = 7; j >= 0; j--)
+            {
+                for (int i = 0; i <= 7; i++)
+                {
+                    if (positions[i, j] != null)
                     {
-                        case "white_king":
-                            TheFen[u++] = 'K';
-                            break;
-                        case "white_queen":
-                            TheFen[u++] = 'Q';
-                            break;
-                        case "white_pawn":
-                            TheFen[u++] = 'P';
-                            break;
-                        case "white_knight":
-                            TheFen[u++] = 'N';
-                            break;
-                        case "white_rook":
-                            TheFen[u++] = 'R';
-                            break;
-                        case "white_bishop":
-                            TheFen[u++] = 'B';
-                            break;
-                        case "black_king":
-                            TheFen[u++] = 'k';
-                            break;
-                        case "black_queen":
-                            TheFen[u++] = 'q';
-                            break;
-                        case "black_pawn":
-                            TheFen[u++] = 'p';
-                            break;
-                        case "black_knight":
-                            TheFen[u++] = 'n';
-                            break;
-                        case "black_rook":
-                            TheFen[u++] = 'r';
-                            break;
-                        case "black_bishop":
-                            TheFen[u++] = 'b';
-                            break;
+                        if (emptySquareCount > 0)
+                        {
+                            TheFen[u++] = (char)('0' + emptySquareCount);
+                            emptySquareCount = 0;
+                        }
+
+                        switch (positions[i, j].name)
+                        {
+                            case "white_king":
+                                TheFen[u++] = 'K';
+                                break;
+                            case "white_queen":
+                                TheFen[u++] = 'Q';
+                                break;
+                            case "white_pawn":
+                                TheFen[u++] = 'P';
+                                break;
+                            case "white_knight":
+                                TheFen[u++] = 'N';
+                                break;
+                            case "white_rook":
+                                TheFen[u++] = 'R';
+                                break;
+                            case "white_bishop":
+                                TheFen[u++] = 'B';
+                                break;
+                            case "black_king":
+                                TheFen[u++] = 'k';
+                                break;
+                            case "black_queen":
+                                TheFen[u++] = 'q';
+                                break;
+                            case "black_pawn":
+                                TheFen[u++] = 'p';
+                                break;
+                            case "black_knight":
+                                TheFen[u++] = 'n';
+                                break;
+                            case "black_rook":
+                                TheFen[u++] = 'r';
+                                break;
+                            case "black_bishop":
+                                TheFen[u++] = 'b';
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        emptySquareCount++;
                     }
                 }
-                else
+
+                if (emptySquareCount > 0)
                 {
-                    emptySquareCount++;
+                    TheFen[u++] = (char)('0' + emptySquareCount);
+                    emptySquareCount = 0;
                 }
-            }
 
-            if (emptySquareCount > 0)
-            {
-                TheFen[u++] = (char)('0' + emptySquareCount);
-                emptySquareCount = 0;
-            }
+                if (j != 0)
+                {
+                    TheFen[u++] = '/';
+                }
 
-            if (j != 0)
-            {
-                TheFen[u++] = '/';
             }
+            TheFen[u++] = ' ';
+            TheFen[u++] = (currentPlayer == "white") ? 'w' : 'b';
+            string Fen = new string(TheFen);
+            PlayerPrefs.SetString("LastScene", Fen);
         }
-
-        string Fen = new string(TheFen);
-        PlayerPrefs.SetString("LastScene",Fen);
-        Debug.Log(Fen);
+        else
+            PlayerPrefs.SetString("LastScene", "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
     }
 
 

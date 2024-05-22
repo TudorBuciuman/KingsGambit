@@ -6,9 +6,13 @@ public class GameManager : MonoBehaviour
 {
     public void LoadScene(string sceneName)
     {
-        Debug.Log("se incarca scena ");
         PlayerPrefs.SetString("Continue", "no");
         PlayerPrefs.SetString("Multiplayer", "no");
+        if (sceneName == "Game UI")
+        {
+            GameObject qwop = GameObject.FindGameObjectWithTag("tag2");
+            Destroy(qwop);
+        }
         SceneManager.LoadScene(sceneName);
 
     }
@@ -22,9 +26,12 @@ public class GameManager : MonoBehaviour
     public void SaveAndClose(string sceneName)
     {
       GameObject controller = GameObject.FindGameObjectWithTag("GameController");
-        if (PlayerPrefs.GetString("LastScene") != "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+        if(PlayerPrefs.GetString("Multiplayer")=="no")
+        controller.GetComponent<Game>().SaveFenBoard();
+        if (sceneName == "Game UI")
         {
-            controller.GetComponent<Game>().SaveFenBoard();
+            GameObject qwop = GameObject.FindGameObjectWithTag("tag2");
+            Destroy(qwop);
         }
         SceneManager.LoadScene(sceneName);
     }
