@@ -25,8 +25,11 @@ public class ChessBot : MonoBehaviour
 
                 int y = systemRandom.Next(0, r - 1);
                 Debug.Log(BotPieces[t]);
-                t = SearchForMove(BotPieces[y]);
-                t = IsOkeyDokey();
+                if (BotPieces[t] != null)
+                {
+                    t = SearchForMove(BotPieces[y]);
+                    t = IsOkeyDokey();
+                }
             } while (t == 0);
         }
         Q = 0;
