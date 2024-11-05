@@ -12,13 +12,22 @@ public class PuzzleLogic : MonoBehaviour
 {
     public void OpenRandom()
     {
-        string puzzlefile = @"Assets/Resources/Puzzles.txt";
-        System.Random systemRandom = new System.Random();
-        int x=systemRandom.Next(2,18);
-        string fen= File.ReadLines(puzzlefile).Skip(x- 1).FirstOrDefault();
-        PlayerPrefs.SetString("Continue", "yes");
-        PlayerPrefs.SetString("LastScene", fen);
-        PlayerPrefs.SetString("Multiplayer", "no");
-        SceneManager.LoadScene("Puzzle");
+        string puzzlefile = "Puzzles"; 
+        TextAsset textAsset = Resources.Load<TextAsset>(puzzlefile);
+        if (textAsset != null)
+        {
+            string[] lines = textAsset.text.Split('\n');
+
+            System.Random systemRandomm = new System.Random();
+            int u = systemRandomm.Next(0, lines.Length); 
+
+            string fen = lines[u].Trim();
+            PlayerPrefs.SetString("Continue", "yes");
+            PlayerPrefs.SetString("LastScene", fen);
+            PlayerPrefs.SetString("Multiplayer", "no");
+            SceneManager.LoadScene("Puzzle");
+        }
+        
+        
     }
 }

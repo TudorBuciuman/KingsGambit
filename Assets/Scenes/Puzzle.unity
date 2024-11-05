@@ -1159,7 +1159,7 @@ GameObject:
   - component: {fileID: 1774884499}
   - component: {fileID: 1774884498}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: WinnerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

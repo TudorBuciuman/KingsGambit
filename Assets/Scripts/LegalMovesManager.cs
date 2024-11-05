@@ -53,12 +53,10 @@ public class LegalMovesManager : MonoBehaviour
                     else
                     {
                         legalMovesManage.GetComponent<Game>().positions[a, b] = null;
-
                     }
                     legalMovesManage.GetComponent<Game>().positions[x, y] = piece;
                     return false;
                 }
-               
             }
         }
         if (t == 1)
@@ -73,8 +71,7 @@ public class LegalMovesManager : MonoBehaviour
     }
     public bool IsCheckmate()
     {
-            return IsStalemate();
-
+        return IsStalemate();
     }
     public bool IsStalemate()
     {
@@ -86,7 +83,6 @@ public class LegalMovesManager : MonoBehaviour
             {
                 if (!MakeMove(playerPiece))
                 {
-                    Debug.Log(playerPiece);
                     continue;
                 }
                 else
@@ -165,16 +161,7 @@ public class LegalMovesManager : MonoBehaviour
                 }
    
         }
-
-
-
-
-
-
         return false;
-
-
-
     }
     public bool LineMovePlate(int xI, int yI, int a, int b)
     {
@@ -329,10 +316,6 @@ public class LegalMovesManager : MonoBehaviour
                 r += b;
                 if (PositionOnBoard(q, r))
                 {
-                if (piece.name == "black_bishop")
-                {
-                    Debug.Log(q + " " + r);
-                }
                 if (TemporaryUpdate(piece, x, y, q, r))
                     return true;
                 }
@@ -344,8 +327,6 @@ public class LegalMovesManager : MonoBehaviour
             }
             return false;
     }
-
-
 
     public GameObject lostpiece;
     public bool TemporaryUpdate(GameObject piece ,int x, int y, int a, int b)
@@ -365,10 +346,6 @@ public class LegalMovesManager : MonoBehaviour
             t = 2;
             legalMovesManage.GetComponent<Game>().positions[a, b] = piece;
             legalMovesManage.GetComponent<Game>().positions[x, y] = null;
-        }
-        if (piece.name == "black_bishop")
-        {
-            Debug.Log(a + " " + b );
         }
         if (PositionOnBoard(a, b) && (t==1 || t==2))
         {
@@ -405,7 +382,6 @@ public class LegalMovesManager : MonoBehaviour
             }
             else
                 legalMovesManage.GetComponent<Game>().positions[a, b] = null;
-            Debug.Log(piece+" "+x+" "+y+" "+a+" "+b);
             return true;
         }
         else
@@ -413,7 +389,6 @@ public class LegalMovesManager : MonoBehaviour
             return false;
         }
     }
-
     public int PlayerColour(GameObject piece)
     {
        

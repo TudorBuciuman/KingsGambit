@@ -24,7 +24,6 @@ public class ChessBot : MonoBehaviour
                 t = 0;
 
                 int y = systemRandom.Next(0, r - 1);
-                Debug.Log(BotPieces[t]);
                 if (BotPieces[t] != null)
                 {
                     t = SearchForMove(BotPieces[y]);
@@ -34,7 +33,6 @@ public class ChessBot : MonoBehaviour
         }
         Q = 0;
     }
-
     public int SearchForMove(GameObject piece)
     {
        int x=piece.GetComponent<Chessman>().GetXBoard();
@@ -42,7 +40,6 @@ public class ChessBot : MonoBehaviour
         PossibleMoves(x,y,piece);
         return 0;
     }
-
     public void PossibleMoves(int a, int b, GameObject piece)
     {
             switch (piece.name)
@@ -99,21 +96,19 @@ public class ChessBot : MonoBehaviour
     }
     public bool LineMovePlate(GameObject piece, int a, int b, int x, int y)
     {
+        //a & b ==old
         if (Q == 0)
         {
-            int q = x, r = y;
+            int q = a+x, r = b+y;
             while (PositionOnBoard(q, r) && GetPosition(q, r) == null)
             {
-                q += a;
-                r += b;
-                if (PositionOnBoard(q, r))
-                {
-                    PointMovePlate(x, y, q, r);
-                }
+                PointMovePlate(q, r,a,b);
+                q += x;
+                r += y;
             }
             if (PositionOnBoard(q, r) && PlayerColour(GetPosition(q, r)) != PlayerColour(piece))
             {
-                PointMovePlate(x, y, q, r);
+                PointMovePlate(q, r,a,b);
             }
         }
         return false;
@@ -142,7 +137,6 @@ public class ChessBot : MonoBehaviour
         PointMovePlate(a - 1, b + 1, a, b);
 
     }
-
     public void WPawnMovePlate(int x, int y)
     {
         GameObject Piece = game.GetPosition(x,y);
@@ -209,7 +203,6 @@ public class ChessBot : MonoBehaviour
             }
         }
     }
-
     public void EnPassant(int matrixX, int matrixY, int X, int Y)
     {
         float x = matrixX;
@@ -223,7 +216,7 @@ public class ChessBot : MonoBehaviour
         Game.Move a = game.GetTheLastMove();
         mpScript.DMPawn = a.piece;
         mpScript.PwnTQn = false;
-        mpScript.piece = game.GetPosition((int)Math.Round(x), (int)Math.Round( y));
+        mpScript.piece = GetPosition(X,Y);
         mpScript.enPassant = true;
         mpScript.attack = true;
         mpScript.IX = X;
@@ -232,7 +225,6 @@ public class ChessBot : MonoBehaviour
         mpScript.SetCoords(matrixX, matrixY);
         mpScript.MakeMove();
     }
-
     public bool GetEnPassant(int tox, int toy, GameObject obj)
     {
         Game game = controller.GetComponent<Game>();
@@ -275,7 +267,6 @@ public class ChessBot : MonoBehaviour
             return false;
         }
     }
-
     public bool PositionOnBoard(int x, int y)
     {
         if (x >= 0 && x <= 7 && y >= 0 && y <= 7)
@@ -305,9 +296,9 @@ public class ChessBot : MonoBehaviour
     }
     public void PointMovePlate(int x, int y, int a, int b)
     {
+        //x & y ==new  a & b== old
         if (Q == 0)
         {
-            Debug.Log(GetPosition(a,b));
             Game gm = controller.GetComponent<Game>();
 
             if (gm.PositionOnBoard(x, y))
@@ -330,14 +321,13 @@ public class ChessBot : MonoBehaviour
     }
     public void MovePlateSpawn(GameObject piece,int matrixX, int matrixY, int i, int j)
     {
-        LegalMovesManager =controller.GetComponent<LegalMovesManager>();
+       LegalMovesManager =controller.GetComponent<LegalMovesManager>();
        if (Q==0 && LegalMovesManager.IsLegal(piece, i, j, matrixX,matrixY))
         {
           
             MoveThePlate mpScript = controller.GetComponent<MoveThePlate>();
             mpScript.attack = false;
             mpScript.piece = piece;
-            Debug.Log(piece);
             if (piece.name == "white_pawn" || piece.name == "black_pawn")
             {
                 if (matrixY == 7 || matrixY == 0)
@@ -413,5 +403,4 @@ public class ChessBot : MonoBehaviour
             return;
         }
     }
-
 }

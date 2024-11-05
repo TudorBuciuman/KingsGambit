@@ -250,9 +250,7 @@ QualitySettings:
     terrainBillboardStart: 50
     terrainFadeLength: 5
     terrainMaxTrees: 50
-    excludedTargetPlatforms:
-    - Standalone
-    - Android
+    excludedTargetPlatforms: []
   - serializedVersion: 3
     name: Ultra
     pixelLightCount: 4
@@ -306,12 +304,12 @@ QualitySettings:
     - Android
   m_TextureMipmapLimitGroupNames: []
   m_PerPlatformDefaultQuality:
-    Android: 2
+    Android: 3
     Lumin: 5
     Nintendo Switch: 5
     PS4: 5
     Stadia: 5
-    Standalone: 5
+    Standalone: 4
     WebGL: 3
     Windows Store Apps: 5
     XboxOne: 5

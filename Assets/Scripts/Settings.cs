@@ -6,13 +6,12 @@ using UnityEngine.Audio;
 public class Settings : MonoBehaviour
 {
     public AudioMixer audioSource; 
-
     public InputField Username;
     public Button SetUsername;
     public Button Close;
     public Button OpenSettings;
     public Button Theme;
-    public Button SetSound;
+    public Toggle SetSound;
     public string Score;
     public string SetTheme;
     public Text SoundOn;
@@ -24,18 +23,17 @@ public class Settings : MonoBehaviour
 
     public void Open()
     {
-        
-        if (PlayerPrefs.GetString("musicOn") == null || PlayerPrefs.GetString("musicOn") == "1")
-            audioSource.SetFloat(Master, 1f);
+
+        if (PlayerPrefs.GetString("musicOn") == null || PlayerPrefs.GetString("musicOn") == "1") { 
+        audioSource.SetFloat(Master, 1f);
+        SetSound.isOn = true;
+        }
         else
+        {
             audioSource.SetFloat(Master, -80f);
-        
-        SoundOn.enabled = true;
-        if (PlayerPrefs.GetString("musicOn") == "1" || PlayerPrefs.GetString("musicOn")=="")
-            SoundOn.text = "Yes";
-        else
-            SoundOn.text="No";
-       
+            SetSound.isOn = false;
+        }
+        SoundOn.gameObject.SetActive(true);
         Close.gameObject.SetActive(true);
         Username.gameObject.SetActive(true);
         SetUsername.gameObject.SetActive(true);
@@ -58,25 +56,24 @@ public class Settings : MonoBehaviour
         {
             audioSource.SetFloat(Master, -80f);
             PlayerPrefs.SetString("musicOn", "0");
+            SetSound.isOn = false;
         }
         else
         {
             audioSource.SetFloat(Master, 1f);
             PlayerPrefs.SetString("musicOn", "1");
+            SetSound.isOn = true;
         }
-        SoundOn.text = (PlayerPrefs.GetString("musicOn") == "1") ? "Yes" : "No";
     }
     public void CloseSettings()
     {
+        SoundOn.gameObject.SetActive(false);
         Username.gameObject.SetActive(false);
-      //  Theme.enabled = false;
         SetSound.gameObject.SetActive(false);
         SetUsername.gameObject.SetActive(false);
         user.gameObject.SetActive(false);
         UI.gameObject.SetActive(false);
         Themesc.gameObject.SetActive(false);
         Close.gameObject.SetActive(false);
-        SoundOn.enabled = false;
-
     }
 }

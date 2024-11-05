@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using static Game;
 
 
 public class MoveThePlate : MonoBehaviour
@@ -202,8 +198,8 @@ public class MoveThePlate : MonoBehaviour
             {
                 Destroy(lastMovePlat[i]);
             }
-            GameObject LMP=Instantiate(lastMovePlate, new Vector3(x, y, 81), Quaternion.identity);
-            GameObject mp=Instantiate(lastMovePlate, new Vector3(X, Y, 81), Quaternion.identity);
+            GameObject LMP=Instantiate(lastMovePlate, new Vector3(x, y, 80.5f), Quaternion.identity);
+            GameObject mp=Instantiate(lastMovePlate, new Vector3(X, Y, 80.5f), Quaternion.identity);
             if(checkl)
             {
                 GameObject kng = Instantiate(lastMovePlate, new Vector3(a, b, 81), Quaternion.identity);
@@ -228,8 +224,7 @@ public class MoveThePlate : MonoBehaviour
     {
         matrixX = x;
         matrixY = y;
-    }
-    
+    } 
 
     public void RecieveMove(int a,int b, int X, int Y)
     {
@@ -338,8 +333,4 @@ public class MoveThePlate : MonoBehaviour
     public GameObject GetReference() { 
         return reference; 
     }
-
-   
-
-
 }
