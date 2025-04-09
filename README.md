@@ -1,19 +1,19 @@
 
-# King Gambit
+# King's Gambit
 
 <table>
 <tr>
 <td>
 
-King Gambit is a comprehensive chess platform designed to offer both single-player and multiplayer<br> 
+King's Gambit is a comprehensive chess platform designed to offer both single-player and multiplayer<br> 
 experiences, multiplayer being the standard (best) experience. It features advanced AI for challenging <br>
 solo games and a robust multiplayer server for playing with friends or other chess enthusiasts.<br>
-Additionally, King Gambit includes various <br>
-mini-games (puzzles) to improve your chess skills and provide a fun variation on the traditional game.
+Additionally, King Gambit includes various mini-games (puzzles) to improve your chess skills <br>
+and provide a fun variation on the traditional game.
 
 </td>
 <td align="right">
-  <img height="255" src="https://i.imgur.com/4D23QF2.png"/>
+  <img  src="https://i.imgur.com/4D23QF2.png"/>
 </td>
 </tr>
 </table>
