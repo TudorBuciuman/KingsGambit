@@ -1,65 +1,81 @@
 
 # King Gambit
 
-King Gambit este o platformă de șah cuprinzătoare, concepută pentru a oferi atât experiențe single-player, cât și multiplayer. Aceasta dispune de un AI avansat pentru jocuri solo provocatoare și un server multiplayer robust pentru a juca cu prietenii sau alți entuziaști de șah. În plus, King Gambit include diverse mini-jocuri pentru a-ți îmbunătăți abilitățile de șah și pentru a oferi o variație distractivă jocului tradițional.
+<table>
+<tr>
+<td>
+
+King Gambit is a comprehensive chess platform designed to offer both single-player and multiplayer<br> 
+experiences, multiplayer being the standard (best) experience. It features advanced AI for challenging <br>
+solo games and a robust multiplayer server for playing with friends or other chess enthusiasts.<br>
+Additionally, King Gambit includes various <br>
+mini-games (puzzles) to improve your chess skills and provide a fun variation on the traditional game.
+
+</td>
+<td align="right">
+  <img height="255" src="https://i.imgur.com/4D23QF2.png"/>
+</td>
+</tr>
+</table>
 
 
-## Caracteristici
 
-- AI de șah avansat: Joacă împotriva unui AI sofisticat care se adaptează la diferite niveluri de abilitate, oferind o experiență provocatoare pentru toți jucătorii. Codul pentru realizarea optimizata a milioanelor de cautari ce cresc exponential cu fiecare nivel de dificultate este creat personal de mine, avand deja experienta in nivelul cautarilor exponentiale. In urma acestui algoritm, jocul poate oferi partide relaxante, cu mutari rapide si inteligente pentru a oferi jucatorului o experienta unica. 
-- Mod multiplayer: Conectează-te cu alți jucători printr-un server multiplayer securizat. Folosește coduri private pentru a invita prieteni la un meci privat.
-- Mini-jocuri: Participă la o varietate de mini-jocuri concepute pentru a-ți îmbunătăți tacticile de șah și pentru a menține jocul captivant.
-- Interfață intuitivă: Bucură-te de o interfață ușor de utilizat, care face navigarea și jocul relaxant.
+## Features
+
+- Advanced Chess AI: Play against a sophisticated AI that adapts to different skill levels, providing a challenging experience for all players. The code for optimizing the millions of searches that increase exponentially with each level of difficulty is personally created by me, having already had experience in the level of exponential searches. As a result of this algorithm, the game can offer relaxing games, with fast and smart moves to provide the player with a unique experience. 
+- Multiplayer mode: Connect with other players through a secure multiplayer server. Use private codes to invite friends to a private match.
+- Mini-games: Participate in a variety of mini-games designed to improve your chess tactics and keep the game exciting.
+- Intuitive interface: Enjoy an easy-to-use interface that makes navigation and gameplay relaxing.
 
 
 
-## Instalare
+## Install
 
-Jocul este ușor și poate rula pe aproape toate dispozitivele, chiar și pe Android-uri cu versiunea peste 5.1. De asemenea, consumul de RAM este foarte optimizat și poate rula pe dispozitive mai vechi.
-Pentru a incepe cu King Gambit, urmareste pasii:
-1. Clonează repozitoriul:
+The game is lightweight and can run on almost all devices, even on Androids with version above 5.1. Also, the RAM consumption is highly optimized and can run on older devices.
+To get started with King Gambit, follow these steps:
+1. Clone the repository:
 
 ```bash
-  git clone https://github.com/TudorBuciuman/KingsGambit.git
+git clone https://github.com/TudorBuciuman/KingsGambit.git
 
 ```
-2. Deschide in Unity:
-- Deschide proiectul.
-- Apasă pe 'Add' și selectează folderul clonat al depozitului.
-- Deschide proiectul.
+2. Open in Unity:
+- Open the project.
+- Click 'Add' and select the cloned repository folder.
+- Open the project.
 
-3. Construiește și rulează:
-- Selectează ținta de construire (de ex., PC, Mac, iOS, Android).
-- Construiește și rulează jocul.
+3. Build and run:
+- Select the build target (e.g. PC, Mac, iOS, Android).
+- Build and run the game.
 
-## Configurarea Multiplayer 
+## Multiplayer configuration 
 
-Una dintre principalele părți ale jocului este configurarea multiplayer, care constă într-un căutător de meciuri multiplayer, în care îți poți arăta nivelul împotriva altor jucători. O altă funcție este lobby-ul de meciuri private, în care poți crea sau intra în meciuri cu prietenii tăi și, dacă dorești, poți personaliza tabla de șah. Meciurile urmează regulile FIDE de șah.
+One of the main parts of the game is the multiplayer setup, which consists of a multiplayer match finder, where you can show your level against other players. Another feature is the private match lobby, where you can create or join matches with your friends and, if you wish, customize the chessboard. The matches follow the FIDE chess rules.
 
-1. Căutare online de meciuri
-- apasă pe butonul multiplayer și îți vom găsi un adversar.
-2. Creează un meci privat:
-- Lansează aplicatia.
-- Navighează la secțiunea multiplayer.
-- Generează un cod privat și împărtășește-l cu prietenul tău.
-3. Meciuri private:
-- Introdu codul privat împărtășit de prietenul tău pentru a te alătura meciului.
-## Tehnologii folosite
+1. Online match search
+- press the multiplayer button and we will find you an opponent.
+2. Create a private match:
+- Launch the application.
+- Navigate to the multiplayer section.
+- Generate a private code and share it with your friend.
+3. Private matches:
+- Enter the private code shared by your friend to join the match.
+## Tehnologies
 - Frontend:
-Unity: Dezvoltat folosind Unity cu 100% C# pentru o experiență de joc cross-platform lina.
+Unity: Developed using Unity with 100% C# for a smooth cross-platform gaming experience.
 - Networking:
-Photon Unity Networking (PUN) 2: Oferă cadrul pentru funcțiile multiplayer, asigurând un matchmaking fără întreruperi și joc în timp real, cu actualizari chiar si in cazul deconectarii.
+Photon Unity Networking (PUN) 2: Provides the framework for multiplayer features, ensuring seamless matchmaking and real-time gameplay, with updates even when disconnected.
 - Assets:
-Toate resursele, cu excepția modelelor pieselor (pe care le voi edita eu mai târziu), sunt realizate manual.
+All assets, except for the part models (which I will edit later), are hand-crafted.
 
-## Experienta personala
-Ideea pentru Regele Gambit a fost inspirată de dragostea mea pentru șah, care a început în primăvara anului 2023, și de dorința de a crea o platformă unde atât jucătorii ocazionali, cât și entuziaștii pot să se bucure de o experiență bogată de șah. Văzând prietenii și familia mea angajându-se în joc, în special în timpul meciurilor private, a fost incredibil de satisfăcător. Feedback-ul lor pozitiv și distracția pe care am avut-o în timpul mini-jocurilor m-au încurajat să dezvolt și să îmbunătățesc King Gambit.
-## Contributii
-Jocul, codul, toate sunt realizate de mine. Contribuțiile sunt binevenite! Sunt conștient că jocul nu este 100% perfect, dar încerc mereu să fac jocul mai bun. Dacă dorești să contribui la Regele Gambit sau să raportezi erori sau să dai idei, te rog să mă contactezi pe rețelele sociale și voi face tot posibilul.
+## My opinion
+The idea for King Gambit was inspired by my love of chess, which began in the spring of 2023, and the desire to create a platform where both casual and enthusiast players can enjoy a rich chess experience. Seeing my friends and family engage with the game, especially during private matches, was incredibly satisfying. Their positive feedback and the fun I had during the mini-games encouraged me to develop and improve King Gambit.
+## Contributions
+The game, the code, everything is made by me. Contributions are welcome! I am aware that the game is not 100% perfect, but I am always trying to make the game better. If you would like to contribute to King Gambit or report bugs or give ideas, please contact me on social media and I will do my best.
 <h3 align="left">Connect with me:</h3>
 <p align="left">
 <a href="https://instagram.com/buciumantudor" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="buciumantudor" height="30" width="40" /></a>
 </p>
 
 <h3 align="left">Languages and Tools:</h3>
-<p align="left"> <a href="https://developer.android.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/android/android-original-wordmark.svg" alt="android" width="40" height="40"/> </a> <a href="https://www.cprogramming.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" alt="c" width="40" height="40"/> </a> <a href="https://www.w3schools.com/cpp/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/cplusplus/cplusplus-original.svg" alt="cplusplus" width="40" height="40"/> </a> <a href="https://www.w3schools.com/cs/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg" alt="csharp" width="40" height="40"/> </a> <a href="https://unity.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/unity3d/unity3d-icon.svg" alt="unity" width="40" height="40"/> </a> </p>
+<p align="left"> <a href="https://developer.android.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/android/android-original-wordmark.svg" alt="android" width="40" height="40"/> </a>   <a href="https://www.w3schools.com/cs/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg" alt="csharp" width="40" height="40"/> </a> <a href="https://unity.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/unity3d/unity3d-icon.svg" alt="unity" width="40" height="40"/> </a> </p>
