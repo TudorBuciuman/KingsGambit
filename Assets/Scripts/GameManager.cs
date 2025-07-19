@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+
     public void LoadScene(string sceneName)
     {
         PlayerPrefs.SetString("Continue", "no");
