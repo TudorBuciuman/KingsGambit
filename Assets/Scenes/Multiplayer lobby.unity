@@ -228,7 +228,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &127001351
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -754,17 +754,21 @@ PrefabInstance:
       propertyPath: source
       value: 
       objectReference: {fileID: 400371245}
+    - target: {fileID: 5812796787655896843, guid: 051a7ed8f1179ab47a8e68bb29499b91, type: 3}
+      propertyPath: enpassant
+      value: 
+      objectReference: {fileID: 8300000, guid: be3bd65e3f0d4b545849cbf0051b8d75, type: 3}
     - target: {fileID: 7063896333358590063, guid: 051a7ed8f1179ab47a8e68bb29499b91, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.7518494
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7063896333358590063, guid: 051a7ed8f1179ab47a8e68bb29499b91, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15.81424
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7063896333358590063, guid: 051a7ed8f1179ab47a8e68bb29499b91, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 245.28302
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7063896333358590063, guid: 051a7ed8f1179ab47a8e68bb29499b91, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1051,7 +1055,6 @@ RectTransform:
   - {fileID: 1739878897}
   - {fileID: 1495603367}
   - {fileID: 246536190}
-  - {fileID: 1089616068}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1075,6 +1078,7 @@ MonoBehaviour:
   controll: {fileID: 0}
   CancelButton: {fileID: 0}
   ptnview: {fileID: 0}
+  code: 0
   randomValue: 0
   yourColour: 
   opponentColour: 
@@ -1089,9 +1093,12 @@ MonoBehaviour:
   nope: {fileID: 0}
   ye: {fileID: 0}
   no: {fileID: 0}
+  Joining: {fileID: 0}
+  key: {fileID: 0}
   MyName: 
   MyTurn: 
   OppName: 
+  roomKey: 
   multiplayer: 0
   view: {fileID: 0}
   drawbool: 0
@@ -1317,7 +1324,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &503629112
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1752,6 +1759,7 @@ GameObject:
   - component: {fileID: 1062876410}
   - component: {fileID: 1062876409}
   - component: {fileID: 1062876408}
+  - component: {fileID: 1062876411}
   m_Layer: 5
   m_Name: back_button
   m_TagString: Untagged
@@ -1873,13 +1881,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1062876406}
   m_CullTransparentMesh: 1
+--- !u!114 &1062876411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062876406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae1a14f6492b064abee3a6b29c05f85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1089616067
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 411896648}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 6860431873039628279, guid: e193c72ee353fac43a19fb4e8a210772, type: 3}
       propertyPath: m_Color.b
@@ -1927,15 +1947,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8514169936310241000, guid: e193c72ee353fac43a19fb4e8a210772, type: 3}
       propertyPath: m_LocalScale.x
-      value: 34.285717
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 8514169936310241000, guid: e193c72ee353fac43a19fb4e8a210772, type: 3}
       propertyPath: m_LocalScale.y
-      value: 34.285717
+      value: 2.4
       objectReference: {fileID: 0}
     - target: {fileID: 8514169936310241000, guid: e193c72ee353fac43a19fb4e8a210772, type: 3}
       propertyPath: m_LocalScale.z
-      value: 14.285716
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8514169936310241000, guid: e193c72ee353fac43a19fb4e8a210772, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1947,7 +1967,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8514169936310241000, guid: e193c72ee353fac43a19fb4e8a210772, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 81
+      value: 85.67
       objectReference: {fileID: 0}
     - target: {fileID: 8514169936310241000, guid: e193c72ee353fac43a19fb4e8a210772, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1982,11 +2002,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e193c72ee353fac43a19fb4e8a210772, type: 3}
---- !u!4 &1089616068 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8514169936310241000, guid: e193c72ee353fac43a19fb4e8a210772, type: 3}
-  m_PrefabInstance: {fileID: 1089616067}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1318971569
 GameObject:
   m_ObjectHideFlags: 0
@@ -2415,6 +2430,7 @@ MonoBehaviour:
   IX: 0
   IY: 0
   attack: 0
+  enpass: 0
   PwnTQn: 0
   piece: {fileID: 0}
   enPassant: 0
@@ -2430,6 +2446,7 @@ MonoBehaviour:
   move: {fileID: 0}
   moveattack: {fileID: 0}
   check: {fileID: 0}
+  enpassant: {fileID: 0}
   a: 0
   b: 0
 --- !u!114 &1485857899
@@ -2536,6 +2553,7 @@ MonoBehaviour:
   controll: {fileID: 0}
   CancelButton: {fileID: 0}
   ptnview: {fileID: 0}
+  code: 0
   randomValue: 0
   yourColour: 
   opponentColour: 
@@ -2550,9 +2568,12 @@ MonoBehaviour:
   nope: {fileID: 0}
   ye: {fileID: 1739878898}
   no: {fileID: 1495603368}
+  Joining: {fileID: 0}
+  key: {fileID: 0}
   MyName: 
   MyTurn: 
   OppName: 
+  roomKey: 
   multiplayer: 0
   view: {fileID: 0}
   drawbool: 0
@@ -3582,6 +3603,7 @@ MonoBehaviour:
   controll: {fileID: 0}
   CancelButton: {fileID: 0}
   ptnview: {fileID: 0}
+  code: 0
   randomValue: 0
   yourColour: 
   opponentColour: 
@@ -3596,9 +3618,12 @@ MonoBehaviour:
   nope: {fileID: 589268406}
   ye: {fileID: 1739878898}
   no: {fileID: 1495603368}
+  Joining: {fileID: 0}
+  key: {fileID: 0}
   MyName: 
   MyTurn: 
   OppName: 
+  roomKey: 
   multiplayer: 0
   view: {fileID: 0}
   drawbool: 0
@@ -3610,6 +3635,7 @@ SceneRoots:
   - {fileID: 680187034}
   - {fileID: 1485857900}
   - {fileID: 411896648}
+  - {fileID: 1089616067}
   - {fileID: 127001352}
   - {fileID: 400371244}
   - {fileID: 503629113}

@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 9
   m_Sprite: {fileID: -6128519527509545951, guid: 312dea0813c017c439535acbca180515, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -105,6 +105,7 @@ MonoBehaviour:
   IX: 0
   IY: 0
   attack: 0
+  enpass: 0
   PwnTQn: 0
   piece: {fileID: 0}
   enPassant: 0
@@ -120,5 +121,6 @@ MonoBehaviour:
   move: {fileID: 0}
   moveattack: {fileID: 0}
   check: {fileID: 0}
+  enpassant: {fileID: 0}
   a: 0
   b: 0

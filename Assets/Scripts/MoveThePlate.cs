@@ -15,6 +15,7 @@ public class MoveThePlate : MonoBehaviour
     public int IX;
     public int IY;
     public bool attack =false;
+    public bool enpass =false;
     public bool PwnTQn = false;
     public GameObject piece;
     public bool enPassant;
@@ -27,7 +28,7 @@ public class MoveThePlate : MonoBehaviour
     public int txr;
     public bool checkl=false;
     public AudioSource source;
-    public AudioClip move, moveattack, check;
+    public AudioClip move, moveattack, check, enpassant;
     public float a, b;
     public void Start()
     {
@@ -39,11 +40,13 @@ public class MoveThePlate : MonoBehaviour
             GameObject chp = controller.GetComponent<Game>().GetPosition(matrixX, matrixY);
             if (chp != null)
             {
-                gameObject.GetComponent<SpriteRenderer>().color = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+                ColorUtility.TryParseHtmlString("#BF2529", out Color myColor); 
+                gameObject.GetComponent<SpriteRenderer>().color = myColor; 
             }
             else if (enPassant && chp==null)
             {
-                gameObject.GetComponent<SpriteRenderer>().color = new Color(1.0f, 1.0f, 0.0f, 1.0f);
+                ColorUtility.TryParseHtmlString("#FFB000", out Color mycol);
+                gameObject.GetComponent<SpriteRenderer>().color = mycol;
             }
         }
     }
@@ -52,10 +55,11 @@ public class MoveThePlate : MonoBehaviour
     {
         GameObject surce = GameObject.FindGameObjectWithTag("source");
         source.enabled=true;
-        
-        surce.GetComponent<AudioSource>().clip = Clip;
-        surce.GetComponent<AudioSource>().Play();
-      
+        if (surce.GetComponent<AudioSource>().clip != enpassant || !surce.GetComponent<AudioSource>().isPlaying)
+        {
+            surce.GetComponent<AudioSource>().clip = Clip;
+            surce.GetComponent<AudioSource>().Play();
+        }
     }
 
     public void OnMouseUp()
@@ -81,6 +85,7 @@ public class MoveThePlate : MonoBehaviour
                 {
                     chp = DMPawn;
                 enabled = false;
+                enpass = true;
                 }
             if (controller.GetComponent<LegalMovesManager>().PlayerColour(chp) == 1)
             {
@@ -154,16 +159,18 @@ public class MoveThePlate : MonoBehaviour
             }
             controller.GetComponent<Game>().RecordTheMove(piece, IX, IY, piece.GetComponent<Chessman>().GetXBoard(), piece.GetComponent<Chessman>().GetYBoard());
         legalMovesManager =controller.GetComponent<LegalMovesManager>();
+        float boardSize = (2048f * Game.multiplier) / 100f;
+        float squareSize = boardSize / 8f;
+        float halfBoard = (boardSize / 2f) - (squareSize / 2f);
 
-        
-         if (legalMovesManager.IsKingInCheck())
+        if (legalMovesManager.IsKingInCheck())
             {
             a = controller.GetComponent<LegalMovesManager>().Xkposition; 
             b= controller.GetComponent<LegalMovesManager>().Ykposition;
-            a *= 6.06f;
-            b *= 6.06f;
-            a -= 21.24f;
-            b -= 21.24f;
+            
+
+            a = (a * squareSize) - halfBoard;
+            b = (b * squareSize) - halfBoard;
             if (legalMovesManager.IsCheckmate())
                 {
                 controller.GetComponent<Game>().Winner();
@@ -180,44 +187,45 @@ public class MoveThePlate : MonoBehaviour
                 legalMovesManager.SetGameOver();
                 controller.GetComponent<Game>().Draw();
             }
-          
-            float x = matrixX;
-            float y = matrixY;
-            x *= 6.06f;
-            y *= 6.06f;
-            x -= 21.24f;
-            y -= 21.24f;
-            float X = IX;
-            float Y = IY;
-            X *= 6.06f;
-            Y *= 6.06f;
-            X -= 21.24f;
-            Y -= 21.24f;
+
+            float x = (matrixX * squareSize) - halfBoard;
+            float y = (matrixY * squareSize) - halfBoard; ;
+            float X = (IX * squareSize) - halfBoard;
+            float Y = (IY * squareSize) - halfBoard;
+
             GameObject[] lastMovePlat = GameObject.FindGameObjectsWithTag("lastMovePlate");
             for(int i=0; i<lastMovePlat.Length; i++)
             {
                 Destroy(lastMovePlat[i]);
             }
             GameObject LMP=Instantiate(lastMovePlate, new Vector3(x, y, 80.5f), Quaternion.identity);
-            GameObject mp=Instantiate(lastMovePlate, new Vector3(X, Y, 80.5f), Quaternion.identity);
-            if(checkl)
+            LMP.transform.localScale = new Vector2(LMP.transform.localScale.x * Game.multiplier / 2.4f, LMP.transform.localScale.y * Game.multiplier / 2.4f);
+            GameObject mp =Instantiate(lastMovePlate, new Vector3(X, Y, 80.5f), Quaternion.identity);
+            mp.transform.localScale = new Vector2(mp.transform.localScale.x * Game.multiplier / 2.4f, mp.transform.localScale.y * Game.multiplier / 2.4f);
+            if (checkl)
             {
                 GameObject kng = Instantiate(lastMovePlate, new Vector3(a, b, 81), Quaternion.identity);
                 kng.GetComponent<SpriteRenderer>().color = new Color(1.0f, 0.4f, 0.0f, 1.0f);
-                checkl = false;
+                kng.transform.localScale = new Vector2(kng.transform.localScale.x * Game.multiplier / 2.4f, kng.transform.localScale.y * Game.multiplier / 2.4f);
+
+            checkl = false;
             }
             mp.GetComponent<SpriteRenderer>().color = new Color(0.3f, 0.3f, 0.3f, 1.0f);
-            if (attack) {
-            LMP.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.4f, 0.3f, 1.0f);
-            PlaySound(moveattack);
-                    attack = false;
-                }
-                else
-                {
-                    PlaySound(move);
-           
-            LMP.GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.6f, 0.3f, 1.0f);
-        }
+            if (enpass)
+            {
+                PlaySound(enpassant);
+                enpass = false;
+            }
+            else if (attack) {
+                LMP.GetComponent<SpriteRenderer>().color = new Color(0.7f, 0.4f, 0.3f, 1.0f);
+                PlaySound(moveattack);
+                attack = false;
+            }
+            else
+            {
+                PlaySound(move);
+                LMP.GetComponent<SpriteRenderer>().color = new Color(0.8f, 0.6f, 0.3f, 1.0f);
+            }
        
     }
     public void SetCoords(int x, int y)
@@ -235,12 +243,12 @@ public class MoveThePlate : MonoBehaviour
             attack = true;
         else
             attack = false;
-        float x =X;
-        float y =Y;
-        x *= 6.06f;
-        y *= 6.06f;
-        x -= 21.24f;
-        y -= 21.24f;
+        float boardSize = (2048f * Game.multiplier) / 100f; 
+        float squareSize = boardSize / 8f;       
+        float halfBoard = (boardSize / 2f) - (squareSize / 2f); 
+        float x = (X * squareSize) - halfBoard;
+        float y = (Y * squareSize) - halfBoard;
+
         matrixX = a; matrixY=b;
         IX=X; IY = Y;
         piece = controller.GetComponent<Game>().GetPosition(X,Y);

@@ -6,13 +6,32 @@ using UnityEngine.UI;
 public class Intro : MonoBehaviour
 {
     public Image logo, TTG;
+    public Image Wlogo, WTTG;
     public Text Text;
     public AudioClip boomsound;
     public AudioSource AudioSource;
+    public Sprite corrupted;
+    bool win = false;
+    private void Awake()
+    {
+#if UNITY_STANDALONE_WIN
+        win = true;
+#endif
+        if(PlayerPrefs.GetInt("darkMode") == 1)
+        {
+            TTG.sprite = corrupted;
+            WTTG.sprite = corrupted;
+        }
+    }
     void Start()
     {
         StartCoroutine(PlayOnSight());
-        if (PlayerPrefs.GetInt("entered")!=0)
+        if (PlayerPrefs.GetInt("Intro") == 1)
+        {
+            StartCoroutine(Waitting());
+
+        }
+        else if (PlayerPrefs.GetInt("entered")!=0)
         {
             StartCoroutine(BootUp());
         }
@@ -22,12 +41,21 @@ public class Intro : MonoBehaviour
         yield return new WaitForSeconds(6.3f);
         SceneManager.LoadScene("Game UI");
     }
+    private IEnumerator Waitting()
+    {
+        yield return new WaitForSeconds(6.3f);
+        SceneManager.LoadScene("Waiting");
+    }
     private IEnumerator PlayOnSight()
     {
         yield return Waiting(2.3f);
-        TTG.gameObject.SetActive(true);
+        if (!win)
+            TTG.gameObject.SetActive(true);
+        else
+            WTTG.gameObject.SetActive(true);
         yield return Waiting(2f);
         TTG.gameObject.SetActive(false);
+        WTTG.gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         PlaySound();
@@ -37,9 +65,13 @@ public class Intro : MonoBehaviour
         yield return Waiting(2f);
         Text.gameObject.SetActive(false);
         yield return Waiting(2.5f);
-        logo.gameObject.SetActive(true);
+        if (!win)
+            logo.gameObject.SetActive(true);
+        else
+            Wlogo.gameObject.SetActive(true);
         yield return Waiting(4f);
         logo.gameObject.SetActive(false);
+        Wlogo.gameObject.SetActive(false);
         PlaySound();
         yield return Waiting(2f);
         Text.text = "made by B.Tudor";

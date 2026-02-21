@@ -142,11 +142,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
+  lastMovePlate: {fileID: 0}
+  movePlate: {fileID: 0}
   legalMovesManager: {fileID: 0}
   test: {fileID: 0}
   IX: 0
   IY: 0
   attack: 0
+  enpass: 0
   PwnTQn: 0
   piece: {fileID: 0}
   enPassant: 0
@@ -157,7 +160,11 @@ MonoBehaviour:
   yr: 0
   tyr: 0
   txr: 0
+  checkl: 0
   source: {fileID: 1467648238147565499}
   move: {fileID: 8300000, guid: f9117cc86d1cc414caecc05e79be0fcd, type: 3}
   moveattack: {fileID: 8300000, guid: 4328e6c5a9ac2f34aaf00e7732377ce4, type: 3}
   check: {fileID: 8300000, guid: 8802e8e115990d945888f4169df26311, type: 3}
+  enpassant: {fileID: 8300000, guid: be3bd65e3f0d4b545849cbf0051b8d75, type: 3}
+  a: 0
+  b: 0

@@ -76,9 +76,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 42
   m_Sprite: {fileID: -4075827059431164508, guid: 09b6c2ef2bbbb3249bb1b5a59ee961ea, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.4716981, g: 0.27761474, b: 0.10012461, a: 0.8}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -154,6 +154,7 @@ MonoBehaviour:
   IX: 0
   IY: 0
   attack: 0
+  enpass: 0
   PwnTQn: 0
   piece: {fileID: 0}
   enPassant: 0
@@ -169,6 +170,7 @@ MonoBehaviour:
   move: {fileID: 8300000, guid: f9117cc86d1cc414caecc05e79be0fcd, type: 3}
   moveattack: {fileID: 8300000, guid: 4328e6c5a9ac2f34aaf00e7732377ce4, type: 3}
   check: {fileID: 8300000, guid: 8802e8e115990d945888f4169df26311, type: 3}
+  enpassant: {fileID: 8300000, guid: be3bd65e3f0d4b545849cbf0051b8d75, type: 3}
   a: 0
   b: 0
 --- !u!82 &7639445534793773226
@@ -283,6 +285,7 @@ MonoBehaviour:
   controll: {fileID: 5253074234999764590, guid: 083e680ec606d154b9e85dffc678c9cb, type: 3}
   CancelButton: {fileID: 0}
   ptnview: {fileID: 0}
+  code: 0
   randomValue: 0
   yourColour: 
   opponentColour: 
@@ -297,9 +300,12 @@ MonoBehaviour:
   nope: {fileID: 0}
   ye: {fileID: 0}
   no: {fileID: 0}
+  Joining: {fileID: 0}
+  key: {fileID: 0}
   MyName: 
   MyTurn: 
   OppName: 
+  roomKey: 
   multiplayer: 0
   view: {fileID: 0}
   drawbool: 0

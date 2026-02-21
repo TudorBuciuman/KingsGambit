@@ -36,7 +36,7 @@ public class Chessman : MonoBehaviour
     public int TXR;
     public int TYR;
     public bool castling = false;
-    public bool multiplayer = false;
+    public static bool multiplayer = false;
 
    
     public void Activate()
@@ -44,10 +44,11 @@ public class Chessman : MonoBehaviour
         GameObject[] MM = GameObject.FindGameObjectsWithTag("tag2");
         controller = GameObject.FindGameObjectWithTag("GameController");
 
+
         if (MM[0].GetComponent<Chessman>().MyTurn == "white" || MM[0].GetComponent<Chessman>().MyTurn == "black")
         {
             MyTurn = MM[0].GetComponent<Chessman>().MyTurn;
-            MM[0].GetComponent<Chessman>().multiplayer = true;
+            multiplayer = true;
           
         }
         else
@@ -76,14 +77,16 @@ public class Chessman : MonoBehaviour
     }
     public void SetCoords()
     {
-        float x = xBoard;
-        float y = yBoard;
-        x *= 6.06f;
-        y *= 6.06f;
-        x -= 21.24f;
-        y -= 21.24f;
-        this.transform.position = new Vector3(x, y, 80);
+        float boardSize = (2048f * Game.multiplier) / 100f; 
+        float squareSize = boardSize / 8f;      
+        float halfBoard = (boardSize / 2f) - (squareSize / 2f);
+
+        float x = (xBoard * squareSize) - halfBoard;
+        float y = (yBoard * squareSize) - halfBoard;
+
+        this.transform.position = new Vector3(x, y, 80f);
     }
+
 
 
     public int GetXBoard()
@@ -400,14 +403,15 @@ public class Chessman : MonoBehaviour
     }
     public void EnPassant(int matrixX, int matrixY,int X, int Y)
     {
-        float x = matrixX;
-        float y = matrixY;
-        x *= 6.06f;
-        y *= 6.06f;
-        x -= 21.24f;
-        y -= 21.24f;
+        float boardSize = (2048f * Game.multiplier) / 100f; 
+        float squareSize = boardSize / 8f;       
+        float halfBoard = (boardSize / 2f) - (squareSize / 2f); 
+
+        float x = (matrixX * squareSize) - halfBoard;
+        float y = (matrixY * squareSize) - halfBoard;
 
         GameObject mp = Instantiate(movePlate, new Vector3(x, y, 80), Quaternion.identity);
+        mp.transform.localScale = new Vector2(mp.transform.localScale.x * Game.multiplier / 2.4f, mp.transform.localScale.y * Game.multiplier / 2.4f);
         MoveThePlate mpScript = mp.GetComponent<MoveThePlate>();
         Game game = controller.GetComponent<Game>();
         Game.Move a = game.GetTheLastMove();
@@ -490,17 +494,18 @@ public class Chessman : MonoBehaviour
     {
         GameObject Piece = gameObject;
         LegalMovesManager =controller.GetComponent<LegalMovesManager>();
-       if (LegalMovesManager.IsLegal(Piece, i, j, matrixX,matrixY))
+        if (LegalMovesManager.IsLegal(Piece, i, j, matrixX,matrixY))
         {
-           
-            float x = matrixX;
-            float y = matrixY;
-            x *= 6.06f;
-            y *= 6.06f;
-            x -= 21.24f;
-            y -= 21.24f;
+
+            float boardSize = (2048f * Game.multiplier) / 100f;
+            float squareSize = boardSize / 8f;
+            float halfBoard = (boardSize / 2f) - (squareSize / 2f);
+
+            float x = (matrixX * squareSize) - halfBoard;
+            float y = (matrixY * squareSize) - halfBoard;
 
             GameObject mp = Instantiate(movePlate, new Vector3(x, y, 80), Quaternion.identity);
+            mp.transform.localScale = new Vector2(mp.transform.localScale.x * Game.multiplier / 2.4f, mp.transform.localScale.y * Game.multiplier / 2.4f);
             MoveThePlate mpScript = mp.GetComponent<MoveThePlate>();
             mpScript.attack = false;
             mpScript.piece = Piece;
@@ -538,15 +543,16 @@ public class Chessman : MonoBehaviour
         LegalMovesManager = controller.GetComponent<LegalMovesManager>();
         if (LegalMovesManager.IsLegal(Piece, i, j, matrixX, matrixY))
         {
-          
-            float x = matrixX;
-            float y = matrixY;
-            x *= 6.06f;
-            y *= 6.06f;
-            x -= 21.24f;
-            y -= 21.24f;
+
+            float boardSize = (2048f * Game.multiplier) / 100f;
+            float squareSize = boardSize / 8f;
+            float halfBoard = (boardSize / 2f) - (squareSize / 2f);
+
+            float x = (matrixX * squareSize) - halfBoard;
+            float y = (matrixY * squareSize) - halfBoard;
 
             GameObject mp = Instantiate(movePlate, new Vector3(x, y, 79), Quaternion.identity);
+            mp.transform.localScale = new Vector2(mp.transform.localScale.x * Game.multiplier / 2.4f, mp.transform.localScale.y * Game.multiplier / 2.4f);
             MoveThePlate mpScript = mp.GetComponent<MoveThePlate>();
             mpScript.attack = true;
             mpScript.piece = Piece;

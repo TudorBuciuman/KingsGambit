@@ -300,16 +300,15 @@ QualitySettings:
     terrainFadeLength: 5
     terrainMaxTrees: 50
     excludedTargetPlatforms:
-    - Standalone
     - Android
   m_TextureMipmapLimitGroupNames: []
   m_PerPlatformDefaultQuality:
-    Android: 3
+    Android: 4
     Lumin: 5
     Nintendo Switch: 5
     PS4: 5
     Stadia: 5
-    Standalone: 4
+    Standalone: 5
     WebGL: 3
     Windows Store Apps: 5
     XboxOne: 5

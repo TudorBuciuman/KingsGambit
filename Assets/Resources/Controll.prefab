@@ -53,6 +53,7 @@ MonoBehaviour:
   controll: {fileID: 5253074234999764590}
   CancelButton: {fileID: 0}
   ptnview: {fileID: -2070988720588338763}
+  code: 0
   randomValue: 0
   yourColour: 
   opponentColour: 
@@ -67,6 +68,12 @@ MonoBehaviour:
   nope: {fileID: 0}
   ye: {fileID: 0}
   no: {fileID: 0}
+  Joining: {fileID: 0}
+  key: {fileID: 0}
+  MyName: 
+  MyTurn: 
+  OppName: 
+  roomKey: 
   multiplayer: 0
   view: {fileID: 0}
   drawbool: 0
@@ -235,6 +242,7 @@ MonoBehaviour:
   IX: 0
   IY: 0
   attack: 0
+  enpass: 0
   PwnTQn: 0
   piece: {fileID: 0}
   enPassant: 0
@@ -250,6 +258,7 @@ MonoBehaviour:
   move: {fileID: 8300000, guid: f9117cc86d1cc414caecc05e79be0fcd, type: 3}
   moveattack: {fileID: 8300000, guid: 4328e6c5a9ac2f34aaf00e7732377ce4, type: 3}
   check: {fileID: 8300000, guid: 8802e8e115990d945888f4169df26311, type: 3}
+  enpassant: {fileID: 8300000, guid: be3bd65e3f0d4b545849cbf0051b8d75, type: 3}
   a: 0
   b: 0
 --- !u!82 &5828593787459577669

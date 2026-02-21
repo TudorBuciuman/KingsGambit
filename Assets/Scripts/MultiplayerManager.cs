@@ -233,7 +233,7 @@ public class MultiplayerManager : MonoBehaviourPunCallbacks
         controller.GetComponent<MultiplayerManager>().OppName= name;
         controller.GetComponent<Chessman>().MyTurn = colour;
         controller.GetComponent<MultiplayerManager>().MyTurn= colour;
-        controller.GetComponent<Chessman>().multiplayer = true;
+        Chessman.multiplayer = true;
         multiplayer = true;
         string myname;
         if (!string.IsNullOrEmpty(PlayerPrefs.GetString("username")))
@@ -267,7 +267,7 @@ public class MultiplayerManager : MonoBehaviourPunCallbacks
         else
             myname = "Guest";
         controller.GetComponent<MultiplayerManager>().MyName= myname;
-        controller.GetComponent<Chessman>().multiplayer = true;
+        Chessman.multiplayer = true;
         controller.GetComponent<Chessman>().MyTurn=hiscolor;
         SceneManager.LoadScene("Multiplayer lobby");
     }

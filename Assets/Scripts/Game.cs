@@ -38,7 +38,12 @@ public class Game : MonoBehaviour
     public string OppNamet;
     public string MyNamet;
 
+    public Text YouWonText;
+    public Image dark;
+
     string fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+
+    public static float multiplier = 2.4f;
 
     public void MuliplayerThings()
     {
@@ -90,13 +95,21 @@ public class Game : MonoBehaviour
     }
     public void Awake()
     {
+#if UNITY_STANDALONE_WIN
+        multiplier = 4.5f;
+        FindFirstObjectByType<Camera>().backgroundColor = Color.black;
+#endif
+
+
         Application.targetFrameRate = 20;
         if (tag=="GameController")
             StartTheGame();
     }
     public void StartTheGame()
     {
-            LoadThePositionFromFen(fen);
+        GameObject.Find("tabla_sah").transform.localScale = new Vector2(multiplier, multiplier);
+
+        LoadThePositionFromFen(fen);
 
 
             for (int i = 0; i < 16 && playerBlack[i] != null; i++)
@@ -114,6 +127,7 @@ public class Game : MonoBehaviour
     GameObject Create(string name, int x, int y)
     {
         GameObject obj = Instantiate(chesspiece, new Vector3(0, 0, 80), Quaternion.identity);
+        obj.transform.localScale = new Vector2(obj.transform.localScale.x * Game.multiplier / 2.4f, obj.transform.localScale.y * Game.multiplier / 2.4f);
         Chessman cm = obj.GetComponent<Chessman>();
         cm.name = name;
         cm.SetYBoard(y);
@@ -170,14 +184,95 @@ public class Game : MonoBehaviour
 
     public void Winner()
     {
-        NextTurn();
-        winner = currentPlayer;
-        WinnerT.text=currentPlayer+" has won";
-        WinnerT.gameObject.SetActive(true);
         gameOver = true;
+        NextTurn();
+        if (PlayerPrefs.GetInt("darkMode") == 1)
+        {
+            if (currentPlayer != "white")
+            {
+                if (!Chessman.multiplayer)
+                {
+                    GameObject a= Instantiate(Resources.Load<GameObject>("GameOver"));
+                    AudioManager.PlayGameOver();
+                    //playing all of the lights
+                    //Game Over screen
+                }
+            }
+            else if (currentPlayer == "white" && !Chessman.multiplayer)
+            {
+                if (PlayerPrefs.GetInt("lv") == 20)
+                {
+                    //Something
+                    //endgame teaser
+                }
+                else
+                {
+                    PlayerPrefs.SetInt("lv", PlayerPrefs.GetInt("lv") + 1);
+                    StartCoroutine(FadeAlphaImg(dark, 10));
+                    StartCoroutine(FadeAlpha(YouWonText, 8));
+                }
+            }
+        }
+        else if (UI.win)
+        {
+            StartCoroutine(FadeAlphaImg(dark, 5));
+            StartCoroutine(FadeAlpha(YouWonText, 3));
+        }
+        else
+        {
+            WinnerT.gameObject.SetActive(true);
+            winner = currentPlayer;
+            WinnerT.text = currentPlayer + " has won";
+        }
         PlayerPrefs.SetString("LastScene", "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
     }
 
+    public IEnumerator FadeAlpha(Text image, float time)
+    {
+        Color color = image.color;
+        float startAlpha = 0f;
+        float endAlpha = 1f; 
+        float elapsed = 0f;
+
+        // Set initial alpha
+        color.a = startAlpha;
+        image.color = color;
+
+        while (elapsed < time)
+        {
+            elapsed += Time.deltaTime;
+            float newAlpha = Mathf.Lerp(startAlpha, endAlpha, elapsed / time);
+            color.a = newAlpha;
+            image.color = color;
+            yield return null;
+        }
+
+        color.a = endAlpha;
+        image.color = color;
+    }
+    public IEnumerator FadeAlphaImg(Image image, float time)
+    {
+        Color color = image.color;
+        float startAlpha = 0f;
+        float endAlpha = 140/255f;
+        float elapsed = 0f;
+
+        // Set initial alpha
+        color.a = startAlpha;
+        image.color = color;
+
+        while (elapsed < time)
+        {
+            elapsed += Time.deltaTime;
+            float newAlpha = Mathf.Lerp(startAlpha, endAlpha, elapsed / time);
+            color.a = newAlpha;
+            image.color = color;
+            yield return null;
+        }
+
+        color.a = endAlpha;
+        image.color = color;
+    }
     public void WinnerText(string player)
     {
         WinnerT.text = player + " has won";
